@@ -1,0 +1,10 @@
+{
+  "Name": "Easy Speed Time",
+  "Author": "Cookie",
+  "Version": "1.0.0",
+  "Description": "Control move speed and pause time in variuous ways and jump/swim, skip intro, auto gate, etc.",
+  "UniqueID": "Cookie.EasySpeedTime",
+  "EntryDll": "EasySpeedTime.dll",
+  "MinimumApiVersion": "2.10",
+  "UpdateKeys": [ "Nexus:9999", "GitHub:qqkookie/ModMain" ]
+}

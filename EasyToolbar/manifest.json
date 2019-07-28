@@ -1,0 +1,10 @@
+{
+    "Name": "Easy Toolbar",
+    "Author": "Cookie",
+    "Version": "1.0.0",
+    "MinimumApiVersion": "2.11",
+    "Description": "Key to rotate toolbar up/down and mouse wheel to scroll to empty slot",
+    "UniqueID": "Cookie.EasyToolbar",
+    "EntryDll": "EasyToolbar.dll",
+    "UpdateKeys": [ "Nexus:9999", "Github:qqkookie/EasyToolbar" ]
+}

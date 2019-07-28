@@ -1,0 +1,11 @@
+﻿{
+  "fishinfo.quality": "品质: ",
+  "fishinfo.species": "品种: {0}",
+  "fishinfo.treasure.appear": "宝箱出现了!",
+  "fishinfo.treasure.caught": "获得了宝箱!",
+  "fishinfo.treasure.incoming": "宝箱在 {0:f1} 秒后出现.",
+  "quality.normal": "一般",
+  "quality.silver": "银",
+  "quality.gold": "金",
+  "quality.iridium": "铱"
+}

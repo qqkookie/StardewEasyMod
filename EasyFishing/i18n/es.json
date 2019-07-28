@@ -1,0 +1,11 @@
+﻿{
+  "fishinfo.quality": "Calidad: ",
+  "fishinfo.species": "Especie: {0:f1}",
+  "fishinfo.treasure.appear": "¡Apareció el tesoro!",
+  "fishinfo.treasure.caught": "Tesoro capturado!",
+  "fishinfo.treasure.incoming": "Tesoro es entrante en {0:f1}s.",
+  "quality.normal": "Normal",
+  "quality.silver": "Plata",
+  "quality.gold": "Oro",
+  "quality.iridium": "Iridium"
+}

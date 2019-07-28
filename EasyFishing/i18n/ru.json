@@ -1,0 +1,11 @@
+{
+  "fishinfo.quality": "Качество: ",
+  "fishinfo.species": "Особь: {0}",
+  "fishinfo.treasure.appear": "Сокровище появилось!",
+  "fishinfo.treasure.caught": "Сокровище поймано!",
+  "fishinfo.treasure.incoming": "Сокровище через {0:f1}с.",
+  "quality.normal": "Нормальное",
+  "quality.silver": "Серебряное",
+  "quality.gold": "Золотое",
+  "quality.iridium": "Иридиевое"
+}

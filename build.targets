@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <DeployModZipTo Condition="'$(Configuration)' == 'Release'">$(SolutionDir)\_releases</DeployModZipTo>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- metadata -->
+    <Authors>Cookie</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/qqKookie/StardewMods</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- build settings -->
+    <LangVersion>latest</LangVersion>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+
+
+    <DisabledWarnings>MSB3270</DisabledWarnings>
+
+  </PropertyGroup>
+
+</Project>

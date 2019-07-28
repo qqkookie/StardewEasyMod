@@ -1,0 +1,12 @@
+{
+  "default": {
+    "idlelong": "You are idle too long.",
+    "stop": "Time Stopped",
+    "resume": "Time Resumed"
+  },
+  "ko-kr": {
+    "idlelong": "너무 오래 움직임이 없음.",
+    "stop": "시간 정지",
+    "resume": "시간 흐름"
+  },
+}

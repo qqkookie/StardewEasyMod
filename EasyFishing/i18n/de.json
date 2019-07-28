@@ -1,0 +1,11 @@
+﻿{
+  "fishinfo.quality": "Qualität: ",
+  "fishinfo.species": "Art: {0}",
+  "fishinfo.treasure.appear": "Schatz erschienen!",
+  "fishinfo.treasure.caught": "Schatz gefangen!",
+  "fishinfo.treasure.incoming": "Schatz erscheint in {0:f1}s.",
+  "quality.normal": "Normal",
+  "quality.silver": "Silber",
+  "quality.gold": "Gold",
+  "quality.iridium": "Iridium"
+}

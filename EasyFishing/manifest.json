@@ -1,0 +1,10 @@
+{
+  "Name": "Easy Fishing",
+  "Author": "Cookie",
+  "Version": "1.0.0",
+  "Description": "Show fishing info and easy, adjustable fishing exerience",
+  "UniqueID": "Cookie.EasyFishing",
+  "EntryDll": "EasyFishing.dll",
+  "MinimumApiVersion": "2.10",
+  "UpdateKeys":  [ "Nexus:9999", "GitHub:qqkookie/ModMain" ]
+}

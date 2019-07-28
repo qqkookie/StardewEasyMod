@@ -1,0 +1,11 @@
+﻿{
+  "fishinfo.quality": "品質: ",
+  "fishinfo.species": "種: {0}",
+  "fishinfo.treasure.appear": "宝箱が出現した",
+  "fishinfo.treasure.caught": "宝物をゲットした",
+  "fishinfo.treasure.incoming": "{0:f1}秒後に宝箱が出現する",
+  "quality.normal": "普通",
+  "quality.silver": "銀",
+  "quality.gold": "金",
+  "quality.iridium": "イリジウム"
+}
