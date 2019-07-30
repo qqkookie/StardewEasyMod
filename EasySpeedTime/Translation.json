@@ -1,12 +1,74 @@
 {
   "default": {
+	"stop": "Stopped",
     "idlelong": "You are idle too long.",
-    "stop": "Time Stopped",
+    "pause": "Time Paused",
     "resume": "Time Resumed"
   },
   "ko-kr": {
+  	"stop": "정지중",
     "idlelong": "너무 오래 움직임이 없음.",
-    "stop": "시간 정지",
+    "pause": "시간 멈춤",
     "resume": "시간 흐름"
+  },
+  "de-de": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "es-es": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "fr-fr": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "hu-hu": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "it-it": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "ja-jp": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "pt-br": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "ru-ru": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "tr-tr": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
+  },
+  "zh-cn": {
+  	"stop": "Stopped",
+    "idlelong": "You are idle too long.",
+    "pause": "Time Paused",
+    "resume": "Time Resumed"
   },
 }

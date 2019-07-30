@@ -1,11 +1,9 @@
 using System;
 using System.IO;
-
 using Microsoft.Xna.Framework.Input;
 
 using StardewValley;
 using StardewValley.Menus;
-using StardewValley.BellsAndWhistles;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
@@ -50,14 +48,20 @@ namespace EasySpeedTime
                 // wait until the game is ready 
                 if (Game1.activeClickableMenu is TitleMenu title && Game1.currentGameTime != null)
                 {
+                    int[] win = ModMain.Config.TitleWindow;
                     // set title screen resolution
-                    var xy = ModMain.Config.TitleResolution;
-                    if (xy[0] > 1024 && xy[1] > 768)
+                    if (win.Length >= 2 && win[0] > 1024 && win[1] > 768)
                     {
-                        Game1.graphics.PreferredBackBufferWidth = xy[0];
-                        Game1.graphics.PreferredBackBufferHeight = xy[1];
+                        Game1.graphics.PreferredBackBufferWidth = win[0];
+                        Game1.graphics.PreferredBackBufferHeight = win[1];
                         Game1.graphics.ApplyChanges();
-                        Game1.updateViewportForScreenSizeChange(false, xy[0], xy[1]);
+                        Game1.updateViewportForScreenSizeChange(false, win[0], win[1]);
+                    }
+                    // set title window position
+                    if (win.Length >= 4 && win[2] > 0 && win[3] > 0)
+                    {
+                        var form = System.Windows.Forms.Control.FromHandle(Program.gamePtr.Window.Handle).FindForm();
+                        form.Location = new System.Drawing.Point(win[2], win[3]);
                     }
 
                     title.receiveKeyPress(Keys.Escape);  // skip intro
@@ -68,10 +72,6 @@ namespace EasySpeedTime
             else if (Current == Step.Skipping)
             {
                 TitleMenu title = (TitleMenu)Game1.activeClickableMenu;
-
-                Game1.options.setWindowedOption("Windowed");
-                // title.receiveKeyPress(Keys.Escape);
-
 
                 // skip to other screen   
                 if (SkipTo == Screen.Title)
@@ -106,18 +106,18 @@ namespace EasySpeedTime
 
                     if (!String.IsNullOrEmpty(lastLoaded) && Directory.Exists(Path.Combine(Constants.SavesPath, lastLoaded)))
                     {
+                        title.update(Game1.currentGameTime);
+
                         if (SkipTo == Screen.AutoHost)
                             Game1.multiplayerMode = 2;  // server mode
-                        try
-                        {
-                            SaveGame.Load(lastLoaded);  // load last save
 
-                            // SetLastFile("");
-                            title.exitThisMenu(false);
-                            Current = Step.AutoLoading;
-                            return;
-                        }
-                        catch { }
+                        SaveGame.Load(lastLoaded);  // load last save
+                        // SetLastFile("");
+
+                        title.exitThisMenu(false);
+
+                        Current = Step.AutoLoading;
+                        return;
                     }
                 }
             }

@@ -3,13 +3,12 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using xTile.Dimensions;
 
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.Tools;
 using StardewValley.Locations;
-using StardewModdingAPI;
-using xTile.Dimensions;
 
 namespace EasyFishing
 {

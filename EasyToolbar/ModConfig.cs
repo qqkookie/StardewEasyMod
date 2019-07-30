@@ -3,10 +3,6 @@ namespace EasyToolbar
     /// <summary>The mod configuration.</summary>
     internal class ModConfig
     {
-        /*********
-        ** Accessors
-        *********/
-
         /// <summary>Key to shift down toolbar row. Default is "Tab" key.</summary>
         public string ShiftDownKey { get; set; } = "Tab";
 
@@ -35,5 +31,9 @@ namespace EasyToolbar
         /// or "none" to select nothing (empty hand), or "keep" for keeping current selected tool.
         /// </summary>
         public string DefaultTool { get; set; } = "keep";
+
+        /// <summary>Key to deselect current tool. (empty hand) Default is "OemTilde"(~) key.</summary>
+        public string DeselectToolKey { get; set; } = "OemTilde";
+
     }
 }

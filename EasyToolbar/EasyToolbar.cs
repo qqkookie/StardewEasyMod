@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Microsoft.Xna.Framework;
-using StardewModdingAPI;
-using StardewModdingAPI.Events;
 
 using StardewValley;
 using StardewValley.Tools;
 using StardewValley.TerrainFeatures;
 using StardewValley.Locations;
-
+using StardewModdingAPI;
+using StardewModdingAPI.Events;
 
 namespace EasyToolbar
 {
@@ -20,11 +18,12 @@ namespace EasyToolbar
         /*********
         ** Fields
         *********/
+
         /// <summary>The mod configuration.</summary>
         private static ModConfig Config;
 
-        /// <summary>The toolbar shifting key bindings.</summary>
-        private static SButton KeyShiftDown, KeyShiftUp, KeyAutoTool;
+        /// <summary>The toolbar shifting key and other bindings.</summary>
+        private static SButton KeyShiftDown, KeyShiftUp, KeyDeselectTool, KeyAutoTool;
 
         /// <summary>Current toolbar slot index changed by mouse wheel scroll.</summary>
         private static int NewToolIndex = -1;
@@ -34,12 +33,12 @@ namespace EasyToolbar
 
         private static bool AutoToolActive = false;
         private static bool Found = false; 
-        private static int wc_cache = -1;
-
+        private static int wc_cache = -1;       // watercan index
 
         /*********
         ** Public methods
         *********/
+
         /// <summary>The mod entry point, called after the mod is first loaded.</summary>
         /// <param name="helper">Provides methods for interacting with the mod directory, such as read/writing a config file or custom JSON files.</param>
         public override void Entry(IModHelper helper)
@@ -49,6 +48,7 @@ namespace EasyToolbar
 
             Enum.TryParse(Config.ShiftDownKey, true, out KeyShiftDown);
             Enum.TryParse(Config.ShiftUpKey, true, out KeyShiftUp);
+            Enum.TryParse(Config.DeselectToolKey, true, out KeyDeselectTool);
             Enum.TryParse(Config.AutoToolKey, true, out KeyAutoTool);
             if ( !(new List<string>() { "Axe", "Scythe", "Hoe" }).Contains(Config.WeedsTool))
                 Config.WeedsTool = "Axe";
@@ -66,6 +66,7 @@ namespace EasyToolbar
         /*********
         ** Private methods
         *********/
+
         /// <summary>The method invoked when the player presses a button.</summary>
         private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
@@ -78,12 +79,17 @@ namespace EasyToolbar
                 AutoToolActive = true;
                 return;
             }
+            else if (e.Button == KeyDeselectTool)
+            {
+                Game1.player.CurrentToolIndex += 99 * TBSlots + 1;
+                return;
+            }
 
             // Rotate the displayed row in the toolbar.
             if (e.Button == KeyShiftDown)
                 Game1.player.shiftToolbar(true);
             else if (e.Button == KeyShiftUp)
-                 Game1.player.shiftToolbar(false);
+                Game1.player.shiftToolbar(false);
             else
                 return;
 
@@ -159,8 +165,6 @@ namespace EasyToolbar
                     SelectTool(Config.WeedsTool);
                 else if (!InHome && obj.Name == "Barrel")
                     SelectTool("Weapon");
-                // else
-                //    SelectTool("none");
             }
             else if (map.terrainFeatures.TryGetValue(tile, out TerrainFeature terra))
             {
@@ -181,49 +185,46 @@ namespace EasyToolbar
                         else
                             SelectTool("Watering Can");
                     }
-                    else
-                    {
-                        if (SelectTool("Seeds") < 0)
-                            SelectTool("none");
-                    }
-                }
-                else if (map is Farm farm )
-                {
-                    int ri = ResourceClumpIndex(farm.resourceClumps.ToList(), tile);
-                    if (ri == ResourceClump.stumpIndex || ri == ResourceClump.hollowLogIndex)
-                        SelectTool("Axe");
-                    else if (ri == ResourceClump.meteoriteIndex || ri == ResourceClump.boulderIndex)
-                        SelectTool("Pixkaxe");
-                }
-                else if (map is MineShaft mine)
-                {
-                    if ( ResourceClumpIndex(mine.resourceClumps.ToList(), tile) > 0)
-                        SelectTool("Pixkaxe");
-                }
-                else if (map is Woods woods)
-                {
-                    if ( ResourceClumpIndex(woods.stumps.ToList(), tile) > 0)
-                        SelectTool("Axe");
-                }
-                else if (map is Forest forest)
-                {
-                    if ( forest.log.tile.Value == tile)     // TODO: something strange..
-                        SelectTool("Axe");
+                    else if (SelectTool("Seeds") < 0)
+                        SelectTool(Config.DefaultTool);
                 }
             }
-            else if ( (wc_cache < 0 || ( player.Items[wc_cache] is WateringCan wc && wc.WaterLeft < wc.waterCanMax-4 )) 
-                &&  IsWaterSource(tile))
+            else if ((wc_cache < 0 || (player.Items[wc_cache] is WateringCan wc && wc.WaterLeft < wc.waterCanMax - 4))
+    && IsWaterSource(tile))
             {
                 SelectTool("Watering Can");
                 wc_cache = NewToolIndex;
             }
-
+            
             //else if (map.doesTileHaveProperty((int) tile.X, (int)tile.Y, "Diggable", "Back") != null)
             //    SelectTool("Hoe");
 
+            else if (map is Farm farm)
+            {
+                int ri = ResourceClumpIndex(farm.resourceClumps.ToList(), tile);
+                if (ri == ResourceClump.stumpIndex || ri == ResourceClump.hollowLogIndex)
+                    SelectTool("Axe");
+                else if (ri == ResourceClump.meteoriteIndex || ri == ResourceClump.boulderIndex)
+                    SelectTool("Pixkaxe");
+            }
+            else if (map is MineShaft mine)
+            {
+                if (ResourceClumpIndex(mine.resourceClumps.ToList(), tile) > 0)
+                    SelectTool("Pixkaxe");
+            }
+            else if (map is Woods woods)
+            {
+                if (ResourceClumpIndex(woods.stumps.ToList(), tile) > 0)
+                    SelectTool("Axe");
+            }
+            else if (map is Forest forest)
+            {
+                if (forest.log.tile.Value == tile)  // TODO: something strange..
+                    SelectTool("Axe");
+            }
+
             if (!Found)
-                // SelectTool("Scythe");
-                SelectTool(Config.DefaultTool);    // by default, select any tool in slot 1
+                SelectTool(Config.DefaultTool);     // default selection
         }
 
         public static int SelectTool(string tooltype, bool allrows = false)
@@ -290,14 +291,10 @@ namespace EasyToolbar
                     && site.getBuildingAt(tile).daysOfConstructionLeft.Value <= 0);
         }
 
-        // resource clump found in farm
-        // private static int[] RCS = { ResourceClump.stumpIndex, ResourceClump.hollowLogIndex,
-        //    ResourceClump.meteoriteIndex, ResourceClump.boulderIndex };
-
         private static int ResourceClumpIndex(List<ResourceClump> rclist, Vector2 tile)
         {
-            ResourceClump rc = rclist.Where(r => r.occupiesTile((int)tile.X, (int)tile.Y)).First();
-            return (rc != null ? rc.parentSheetIndex.Value : -1);
+            var rcl = rclist.Where(r => r.occupiesTile((int)tile.X, (int)tile.Y));
+            return (rcl.Count() > 0 ? rcl.First().parentSheetIndex.Value : -1);
         }
 
     }

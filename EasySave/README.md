@@ -14,7 +14,7 @@ Compatible with Stardew Valley 1.3+ and SMAPI 2.10+ on Linux, Mac, and Windows.
 3. Run the game using SMAPI.
 
 ## Use
-Press `K` to save anywhere. Edit `config.json` to change the key.
+Press `F9` to save anywhere. Edit `config.json` to change the key.
 Your game save files will be backed up automatically on each in-game new day.
 Also on each calendar day before you start playing the game, it will be backed up daily.
 
@@ -36,6 +36,8 @@ Setting                     | Purpose
 For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
 
 ## Credits
+Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasySave)
+
 This mod is based on code of [Save Anywhere mod](http://www.nexusmods.com/stardewvalley/mods/444)
 version 2.11.0 and [Advanced Save Backup mod](http://www.nexusmods.com/stardewvalley/mods/435)
 version 1.7, both by Alpha_Omegasis@Nexus or janavarro95@Github

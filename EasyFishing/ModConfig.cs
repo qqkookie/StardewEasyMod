@@ -1,8 +1,6 @@
-﻿
-namespace EasyFishing
+﻿namespace EasyFishing
 {
     /// <summary>The mod configuration.</summary>
-
     internal class ModConfig
     {
         /// <summary>Don't show fish probablities info of current fishing spot.</summary>
@@ -20,7 +18,7 @@ namespace EasyFishing
         /// <summary>Display fish size in cm, not inch in English/Korean language.</summary>
         public bool MetricSize { get; set; }
 
-        /// <summary>Key to practice fishing for training. Default is F9.</summary>
+        /// <summary>Key to practice fishing for training. Default is F11.</summary>
         public string FishingPracticeKey { get; set; } = "F11";
 
         public string[] PracticeFishes { get; set; } = {};

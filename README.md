@@ -1,17 +1,15 @@
-# StardewEasyMod
-Cookie's Stardew Game Easy Mods
-Cookie's Stardew Valley Mod
+Cookie's Stardew Valley Game Easy Mods
 =====
-This repository contains my SMAPI mods for Stardew Valley. See the individual mods:
+This repository contains my SMAPI mods for Stardew Valley game. It includes several mods:
 
 * [Easy Fishing](EasyFishing)
 * [Easy Save](EasySave)
-* [Easy Time](EasyTime)
+* [Easy Speed Time](EasySpeedTime)
 * [Easy Toolbar](EasyToolbar)
 
-Belows are not active projects, but archive purpose.
+Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod)
 
-Forum post: http://community.playstarbound.com/threads/108756/
+License: GPL 2.0
 
 ## Compiling the mods
 Installing stable releases from Nexus Mods is recommended for most users.
@@ -38,4 +36,3 @@ To package a mod for release:
 2. Recompile the mod per the previous section.
 3. Create a zip file of the mod's folder in the `Mods` folder.
    The zip name should include the mod name and version (like `EasyFishing-1.0.zip`).
-

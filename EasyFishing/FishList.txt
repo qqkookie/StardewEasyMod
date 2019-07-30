@@ -1,0 +1,50 @@
+128 pufferfish           복어
+129 anchovy              멸치
+130 tuna                 참치
+131 sardine              정어리
+132 bream                도미
+136 largemouth bass      큰입우럭
+137 smallmouth bass      작은입우럭
+138 rainbow trout        무지개송어
+139 salmon               연어
+140 walleye              월아이
+141 perch                농어
+142 carp                 잉어
+143 catfish              메기
+144 pike                 강꼬치고기
+145 sunfish              개복치
+146 red mullet           숭어
+147 herring              청어
+148 eel                  장어
+149 octopus              문어
+150 red snapper          붉은 퉁돔
+151 squid                오징어
+154 sea cucumber         해삼
+155 super cucumber       슈퍼 해삼
+156 ghostfish            귀신물고기
+158 stonefish            쑥치
+159 crimsonfish          크림슨피쉬
+160 angler               아귀
+161 ice pip              아이스핍
+162 lava eel             용암 장어
+163 legend               전설의 물고기
+775 glacierfish          빙하고기
+682 mutant carp          돌연변이 잉어
+164 sandfish             도루묵
+165 scorpion carp        전갈잉어
+698 sturgeon             철갑상어
+699 tiger trout          타이거 송어
+700 bullhead             눈동자개
+701 tilapia              틸라피아
+702 chub                 피라미
+704 dorado               만새기
+705 albacore             날개다랑어
+706 shad                 전어
+707 lingcod              범노래미
+708 halibut              넙치
+734 woodskip             숲고기
+795 void salmon          공허의 연어
+796 slimejack            슬라임잭
+798 midnight squid       자정오징어
+799 spook fish           통안어
+800 blobfish             블롭피쉬

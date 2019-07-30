@@ -3,10 +3,6 @@
     /// <summary>The mod configuration.</summary>
     public class ModConfig
     {
-        /*********
-        ** Accessors
-        *********/
-
         /// <summary>When skipping intro, which screen to go?</summary>
         /// <remarks>Can be one of "Title", "Load", "Host", "Join", "AutoLoad" and "AutoHost".</remarks>
         public string IntroSkipTo { get; set; } = "Title";
@@ -17,8 +13,9 @@
         /// <summary>When returned to title screen, foret last loaded game.</summary>
         public bool ForgetLastOnTitle { get; set; }
 
-        /// <remarks>Preferred "Windowed" screen resolution on title screen. X, Y numbers pair.</remarks>
-        public int[] TitleResolution { get; set; } = { 1920, 1080 };
+        /// <remarks>Preferred "Windowed" screen resolution and postion of title screen. 
+        /// list of 4 numbers of width, hieght and optional X, Y postion.</remarks>
+        public int[] TitleWindow { get; set; } = { 1920, 1080, -1, -1 };
 
         /// <summary>Speed up players move (run/walk). 0 to 8. 0 for normal speed, 5 for 100% speed up.</summary>
         public int MoveSpeedUp { get; set; } = 2;
@@ -38,7 +35,7 @@
         public bool DisableAutoGate { get; set; }
 
         /// <summary>Update in-game daytime clock frequently, every 2 min instead of 10 mins.</summary>
-        public bool RunningClock { get; set; } = true;
+        public bool DisableRunningClock { get; set; }
 
         /// <summary>Disable time freeze listed below</summary>
         public bool DisableTimeFreeze { get; set; }
@@ -46,8 +43,8 @@
         /// <summary>Key to toggle time pause/resume. Default is 'O' key.</summary>
         public string PauseKey { get; set; } = "O";
 
-        /// <summary>Idle time in seconds before time freeze, 0 for no idle time freeze. Default 20 secs.</summary>
-        public int IdleTime { get; set; } = 20;
+        /// <summary>Idle time in seconds before time freeze, 0 for no idle time freeze. Default 10 secs.</summary>
+        public int IdleTime { get; set; } = 10;
 
         /// <summary>Idle time in seconds before game is paused, 0 for no game pause. Default 200 secs.</summary>
         public int PauseTime { get; set; } = 200;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using xTile.Dimensions;
@@ -33,7 +32,6 @@ namespace EasyFishing
         private static bool FishingEnding = false;
         private static bool Practicing = false;
         private static int[] PracticeList;
-
 
         /*********
         ** Public methods
@@ -75,7 +73,11 @@ namespace EasyFishing
                 string id = kv.Key.ToString();
                 if (data[1] != "trap" && !exclude.Contains(kv.Key) && (fishnames.Length == 0 || fishnames.Contains(data[0]) 
                     || (data.Count() >= 14 && fishnames.Contains(data[13])) || fishnames.Contains(id)))
+                {
+                    // Monitor.Log($"{id} {data[0]}\t\t{data[13]}");
                     fishids.Add(kv.Key);
+                }
+
             }
             PracticeList = fishids.ToArray();
 
@@ -88,7 +90,6 @@ namespace EasyFishing
             helper.Events.GameLoop.UpdateTicking += OnUpdateTicking;
 
         }
-
 
         /*********
         ** Event handlers

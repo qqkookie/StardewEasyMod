@@ -6,5 +6,5 @@
   "UniqueID": "Cookie.EasySpeedTime",
   "EntryDll": "EasySpeedTime.dll",
   "MinimumApiVersion": "2.10",
-  "UpdateKeys": [ "Nexus:9999", "GitHub:qqkookie/ModMain" ]
+  "UpdateKeys": [ "Nexus:9999", "GitHub:qqkookie/StardewEasyMod" ]
 }

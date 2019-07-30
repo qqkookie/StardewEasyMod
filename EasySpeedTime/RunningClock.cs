@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 using StardewValley;
 
 namespace EasySpeedTime
@@ -12,7 +11,7 @@ namespace EasySpeedTime
         private static int TimeInterval;
         private static int LastGameTime;
 
-        internal static void OnRenderedHud(object sender, RenderedHudEventArgs e)
+        internal static void Draw(SpriteBatch sb)
         {
             if (!Game1.displayHUD || Game1.eventUp || Game1.currentBillboard != 0 
                 || Game1.gameMode != 3 || Game1.freezeControls || Game1.panMode || Game1.HostPaused)
@@ -52,13 +51,12 @@ namespace EasySpeedTime
             }
 
             // Draw digital clock face
-            SpriteBatch SB = e.SpriteBatch;
             Rectangle sourceRect = new Rectangle(333, 431, 71, 43);
             Vector2 moneyBoxPos = Game1.dayTimeMoneyBox.position;
             Vector2 offset = new Vector2(108f, 112f);
             Rectangle bounds = new Rectangle(360, 459, 40, 9);
 
-            SB.Draw(Game1.mouseCursors, moneyBoxPos + offset, bounds,
+            sb.Draw(Game1.mouseCursors, moneyBoxPos + offset, bounds,
                 Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.9f);
 
             int timeShakeTimer = Game1.dayTimeMoneyBox.timeShakeTimer;
@@ -73,7 +71,7 @@ namespace EasySpeedTime
                     && (Game1.currentGameTime.TotalGameTime.TotalMilliseconds % 2000.0 < 1000.0))
                 displaycolor *= 0.5f;
 
-            Utility.drawTextWithShadow(SB, Display, displayFont,
+            Utility.drawTextWithShadow(sb, Display, displayFont,
                 moneyBoxPos + displayPos, displaycolor, 1f, -1f, -1, -1, 1f, 3);
         }
 

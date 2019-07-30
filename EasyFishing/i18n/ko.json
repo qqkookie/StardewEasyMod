@@ -1,6 +1,6 @@
 ﻿{
   "fishinfo.quality": "품질: ",
-  "fishinfo.species": "어종: {0}",
+  "fishinfo.species": "어종: ",
   "fishinfo.treasure.appear": "보물이 나타났다!",
   "fishinfo.treasure.caught": "보물을 건졌다!",
   "fishinfo.treasure.incoming": "{0:f1}초 후 보물 예감",

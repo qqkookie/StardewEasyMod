@@ -19,7 +19,7 @@ When you go fishing, this mod ...
 * adds extra fishing info in hovering description at fish collections menu page:
 weather, active time, fishing locations and season of the fish;
 * shows fish size in metric unit (cm), not inch, for English/Korean language;
-* prevents casting fishing rod unless in front of water;
+* prevents casting fishing rod uselessly unless you are in front of water;
 * let you to practice fishing any fish, anytime, anywhere;
 * relaxes casting timing tolerance for max casting power;
 * reduces time until fish bites;
@@ -75,8 +75,12 @@ no bait/tackle consumption and no stamina drain. Just finger training for you, g
 like [ "anchovy", "참치", "AnChOvY" ]. Names are in case-less English like
 "salmon" or native word like "연어". Empty list ([]) means all fishes in the game.
 Duplicate for frequent choice.
+* For list of all fish names, refer [official wiki](https://stardewvalleywiki.com/Fish) 
+or "FishList.txt" file included FYI in mod folder.
 
 ## Credits
+Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasyFishing)
+
 This mod is based on code of [Joys Of Efficiency mod](https://www.nexusmods.com/stardewvalley/mods/2162)
 version 1.2.11 by yakminepunyo@Nexus or pomepome@Github
 

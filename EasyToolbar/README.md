@@ -5,6 +5,7 @@
 that lets you rotate up/down the top inventory row of the toolbar by pressing `Tab` key
 and let mouse wheel scroll into empty toolbar slot.
 When you press 'U' key, it selects appropriate tool for you smartly.
+When you press '~' key, currently selected tool is deselected and empty-handed.
 
 Compatible with Stardew Valley 1.3+ and SMAPI 2.10+ on Linux, Mac, and Windows.
 
@@ -31,10 +32,13 @@ You can hit the key or press and hold it to select tool.
 `DefaultTool`               | Default tool to select when nothing is appropriate.
 It can be tool name like "Scythe" or numbered slot ("1"-"12") 
 or "none" to select nothing (empty hand) or "keep" for keeping current selected tool.
+`DeselectToolKey`           | Key to deselect current tool. (empty hand) Default is `"OemTilde"`(~) key.
 
 For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
 
 ## Credits
+Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasyToolbar)
+
 This is based on code of [Rotate Toolbar mod](https://www.nexusmods.com/stardewvalley/mods/1100) by Pathoschild@Nexus.
 
 ## Versions

@@ -47,16 +47,17 @@ Setting                     | Purpose
 Can be one of `"Title"`, `"Load"`, `"Host"`, `"Join"`, `"AutoLoad"` and `"AutoHost"`.
 `LastLoadedSave`            | Last loaded game for `AutoLoad/AutoHost`. Updated automatically.
 `ForgetLastOnTitle`         | When returned to title screen, foret last loaded game.
-`TitleResolution`           | Preferred "Windowed" screen resolution on title screen. X, Y numbers pair. Default {9920, 1080}
+`TitleWindow`           | Preferred "Windowed" screen resolution ans position of title screen. 
+List of 4 numbers of width, hieght and optional X, Y position. Default {1920, 1080, -1, -1}
 `MoveSpeedUp`               | Speed up player move (run/walk). 0 to 8. 0 for normal speed, 5 for 100% speed up.
 `HorseSpeedUp`              | Speed up player's horse riding. 0 for normal horse speed.
 `RoadBuff`                  | Speed up on moving on each type of roads. See Note.
 `JumpKey`                   | Key to jump over things. Default is `"Space"` key.
 `DisableAutoGate`           | Disable automatic fence gate open/close.
-`RunningClock`              | Update in-game daytime clock frequently, every 2 min instead of 10 mins.
+`DisableRunningClock`       | Disable update in-game daytime clock frequently, every 2 min instead of 10 mins.
 `DisableTimeFreeze`         | Disable time freeze listed below.
 `PauseKey`                  | Key to toggle time pause/resume. Default is `"O"` key.
-`IdleTime`                  | Idle time in seconds before time freeze, 0 for no idle time freeze. Default 20 secs.
+`IdleTime`                  | Idle time in seconds before time freeze, 0 for no idle time freeze. Default 10 secs.
 `PauseTime`                 | Idle time in seconds before game is paused, 0 for no game pause. Default 200 secs.
 `FreezeInDoor`              | Freeze time while in-door like farm house or store.
 `FreezeInMine`              | Freeze time in the Mine.
@@ -76,6 +77,8 @@ For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_
  - New translation can be added in `Translation.json` file. Encoding is UTF-8.
 
 ## Credits
+Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasySpeedTime)
+
 Intro skip is based on code of [Skip Intro mod](https://www.nexusmods.com/stardewvalley/mods/533)
 version 1.8.2 by Pathoschild@Nexus or Pathoschild@GitHub
 

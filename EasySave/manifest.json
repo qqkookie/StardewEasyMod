@@ -6,6 +6,6 @@
   "UniqueID": "Cookie.EasySave",
   "EntryDll": "EasySave.dll",
   "MinimumApiVersion": "2.10",
-  "UpdateKeys":  [ "Nexus:9999", "GitHub:qqkookie/EasySave" ],
+  "UpdateKeys":  [ "Nexus:9999", "GitHub:qqkookie/StardewEasyMod" ],
   "Dependencies": []
 }

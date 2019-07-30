@@ -1,14 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using xTile.Dimensions;
+
 using StardewValley;
 using StardewModdingAPI;
 
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
-
 namespace EasySpeedTime
 {
+    using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
     internal static class JumpSwim
     {
         private static readonly float JumpHeight = 8.0f;

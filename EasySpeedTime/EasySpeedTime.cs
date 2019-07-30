@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Microsoft.Xna.Framework;
+
 using StardewValley;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
-
 
 namespace EasySpeedTime
 {
@@ -76,8 +75,8 @@ namespace EasySpeedTime
                 helper.Events.GameLoop.ReturnedToTitle += SkipIntro.OnReturnedToTitle;
             }
 
-            if (Config.RunningClock)
-                helper.Events.Display.RenderedHud += RunningClock.OnRenderedHud;
+            if (!Config.DisableRunningClock || !Config.DisableTimeFreeze)
+                helper.Events.Display.RenderedHud += OnRenderedHud;
 
             if (!Config.DisableTimeFreeze)
             {
@@ -92,7 +91,6 @@ namespace EasySpeedTime
             }
         }
 
-
         /*********
         ** Private methods
         *********/
@@ -102,7 +100,6 @@ namespace EasySpeedTime
             if (e.Button == JumpKey)
                 JumpSwim.StartJump();
 
-
             if (Config.DisableTimeFreeze)
                 return;
 
@@ -111,10 +108,7 @@ namespace EasySpeedTime
             if ( e.Button == PauseKey && Context.IsPlayerFree && !FrozenPlace)
             {
                 TimeStopped = !TimeStopped; // toggle
-                new FadingMessage((TimeStopped ? Trans["stop"] : Trans["resume"]),  100, 100, Color.Yellow, 1.0f);
-
-                // Game1.hudMessages.Add(new HUDMessage(
-                //    TimeStopped ? tt_stop : tt_resume, 2) { timeLeft = 500 });
+                Message.OnScreen((TimeStopped ? Trans["pause"] : Trans["resume"]), 100, 100);
             }
             else
                 TimeStopped = false;
@@ -192,7 +186,21 @@ namespace EasySpeedTime
             if (Config.PauseTime > 0 && (now == (LastTime + Config.PauseTime)) && Context.IsPlayerFree)
                 Game1.pauseThenMessage(200, Trans["idlelong"], false);
 
+            if (TimeStopped || FrozenPlace)
+            {
+                Vector2 clkPos = Game1.dayTimeMoneyBox.position;
+                Message.Boxed(Trans["stop"], (int)clkPos.X -120 , (int)clkPos.Y +10);
+            }
+
             // Monitor.Log(((TimeStopped || FrozenPlace) ? "Stopped": "Resumed") + " " + Game1.gameTimeInterval.ToString());
+        }
+
+        private static void OnRenderedHud(object sender, RenderedHudEventArgs e)
+        {
+            if(!Config.DisableRunningClock)
+                RunningClock.Draw(e.SpriteBatch);
+
+            Message.Draw(e.SpriteBatch);
         }
 
         /// <summary>Should time be frozen for player in this place?</summary>
@@ -257,6 +265,7 @@ namespace EasySpeedTime
             if (speedup < -3) speedup = -3;
             return speedup;
         }
+
     }
 }
 

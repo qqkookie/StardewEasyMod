@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 
-using StardewModdingAPI;
-using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
+using StardewModdingAPI;
+using StardewModdingAPI.Events;
 
 namespace EasyFishing
 {

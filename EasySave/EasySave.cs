@@ -9,7 +9,6 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 
-
 namespace EasySave
 {
     /// <summary>The mod entry point.</summary>

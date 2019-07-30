@@ -49,8 +49,9 @@ namespace EasyFishing
 
             StardewValley.Object fish = new StardewValley.Object(whitchFish, 1);
 
-            string speciesText = TryFormat(translation.Get("fishinfo.species").ToString(), fish.DisplayName);
+            // string speciesText = TryFormat(translation.Get("fishinfo.species").ToString(), fish.DisplayName);
             // string sizeText = TryFormat(translation.Get("fishinfo.size").ToString(), GetFinalSize(fishSize));
+            string speciesText = translation.Get("fishinfo.species").ToString() + fish.DisplayName;
             string sizeText = Game1.content.LoadString("Strings\\StringsFromCSFiles:FishingRod.cs.14082") + " " + FishSizeUnit(fishSize);
 
             string qualityText1 = translation.Get("fishinfo.quality").ToString();
