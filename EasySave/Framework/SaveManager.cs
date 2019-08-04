@@ -157,7 +157,7 @@ namespace EasySave
             this.SetPositions(data.Characters);
 
             // TODO: make it call back
-            SaveAnyTime.ShouldResetSchedules = true;
+            EasySave.ShouldResetSchedules = true;
 
             // Notify other mods that load is complete
             // AfterLoad.Invoke(this, EventArgs.Empty);

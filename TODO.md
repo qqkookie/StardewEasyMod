@@ -6,12 +6,16 @@
  * test fishing tackle
  * Translation of EasyFishing and EasySpeedTime
 (de, es, fr, hu, it, ja, pt, ru, tr, zh)
- * peristant config
 
+  * Auto select weapon when monster is near by.
+  * make speed up as buff.
+
+----------------------------------------------------------
+(DONE) handle skull carvern correctly.
+(DONE) peristant config
 (DONE) Fix swim suit mode
 (DONE) change default key of I and P
 (DONE) Remove `BackupEveryRun`  Option of EasySave
-
 (DONE) *  Add doc on fish quality
 (DONE) * fish size cm/inch choice. metric
 (DONE) * fix fishing practice animation freezing bug.!!!!!

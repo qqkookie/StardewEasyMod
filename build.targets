@@ -6,8 +6,8 @@
   <PropertyGroup>
     <!-- metadata -->
     <Authors>Cookie</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/qqKookie/StardewMods</RepositoryUrl>
+    <PackageLicenseExpression>GPL2</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/qqKookie/StardewEasyMods</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- build settings -->
@@ -15,10 +15,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-
-
-    <DisabledWarnings>MSB3270</DisabledWarnings>
-
+    <DisabledWarnings>MS3270</DisabledWarnings>
   </PropertyGroup>
-
 </Project>

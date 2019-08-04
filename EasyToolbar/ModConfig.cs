@@ -20,7 +20,7 @@ namespace EasyToolbar
 
         /// <summary>Key to select appropriate tool for the current tool hit location.
         /// You can hit the key or press and hold it to select tool.</summary>
-        public string AutoToolKey { get; set; } = "U";
+        public string AutoToolKey { get; set; } = "LeftControl";
 
         /// <summary>Tool to select to cut "Weeds". One of "Axe, "Scythe"," or "Hoe".</summary>
         public string WeedsTool { get; set; } = "Scythe";

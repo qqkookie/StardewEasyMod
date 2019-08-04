@@ -81,7 +81,11 @@ namespace EasyToolbar
             }
             else if (e.Button == KeyDeselectTool)
             {
-                Game1.player.CurrentToolIndex += 99 * TBSlots + 1;
+                if (Game1.player.CurrentToolIndex < 999)
+                {
+                    Game1.playSound("dwop");
+                    Game1.player.CurrentToolIndex += 99 * TBSlots;
+                }
                 return;
             }
 
@@ -98,7 +102,7 @@ namespace EasyToolbar
 
             if ( Config.DeselectOnShift)
                 // Invalid tool index to deselect current tool 
-                Game1.player.CurrentToolIndex += 99* TBSlots + 1;
+                Game1.player.CurrentToolIndex += 99* TBSlots;
         }
 
         private static void OnButtonReleased(object sender, ButtonReleasedEventArgs e)
@@ -223,8 +227,13 @@ namespace EasyToolbar
                     SelectTool("Axe");
             }
 
-            if (!Found)
-                SelectTool(Config.DefaultTool);     // default selection
+            if (!Found)   // default selection
+            {
+                if (map is MineShaft || map.Name.StartsWith("UndergroundMine"))
+                    SelectTool("Weapon");
+                else
+                    SelectTool(Config.DefaultTool);    
+            }
         }
 
         public static int SelectTool(string tooltype, bool allrows = false)

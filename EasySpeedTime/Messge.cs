@@ -19,7 +19,7 @@ namespace EasySpeedTime
 
         public static void OnScreen(string message, int x, int y, float timeout = 1.5f)
         {
-            SubPos = new Vector2(x, y);
+            SubPos = new Vector2(x, y)/Game1.options.zoomLevel;
             SubText = new SparklingText(Game1.dialogueFont, message,
                 Color.Yellow, Color.Transparent, false, 0.1, (int)(timeout*1000), 16, 1000);
         }
@@ -27,7 +27,7 @@ namespace EasySpeedTime
         public static void Boxed(string message, int x, int y, float timeout = 1.5f)
         {
             BoxedText = message;
-            BoxedlPos = new Vector2(x, y);
+            BoxedlPos = new Vector2(x, y)/Game1.options.zoomLevel;
             BoxedTimer = Game1.currentGameTime.TotalGameTime.TotalMilliseconds + timeout*1000;
         }
 
@@ -45,7 +45,7 @@ namespace EasySpeedTime
                 && !String.IsNullOrEmpty(BoxedText))
             {
                 SpriteFont font = Game1.smallFont;
-                int margin = Game1.tileSize * 3 / 8;
+                int margin = Game1.tileSize * 1 / 3;
                 var box = font.MeasureString(BoxedText);
                 int width = (int)box.X + 2 * margin;
                 //60 is "cornerSize" * 3 on SDV source

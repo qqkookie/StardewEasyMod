@@ -10,80 +10,14 @@ using StardewModdingAPI.Events;
 
 namespace EasySave
 {
-    using ModMain = EasySave;
-
-    /// <summary>Save Anytime part</summary>
-    internal static class SaveAnyTime
+    public partial class EasySave
     {
-        /*********
-		** Fields
-		*********/
-
-        /// <summary>Provides methods for saving and loading game data.</summary>
-        private static SaveManager SaveManager;
-
-        /// <summary>The parsed schedules by NPC name.</summary>
-        private static readonly IDictionary<string, string> NpcSchedules = new Dictionary<string, string>();
-
-        /// <summary>Whether villager schedules should be reset now.</summary>
-        internal static bool ShouldResetSchedules;
-
-        /// <summary>Whether we're performing a non-vanilla save (i.e. not by sleeping in bed).</summary>
-        private static bool IsCustomSaving;
-
-        private static List<Monster> monsters;
-
-        private static bool customMenuOpen;
-
-        private static SButton SaveAnytimeKey;
-
-        internal static void Setup(IModHelper helper)
-        {
-            Enum.TryParse(ModMain.Config.SaveAnytimeKey, true, out SaveAnytimeKey);
-
-            SaveManager = new SaveManager();
-
-            helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
-            helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
-            helper.Events.GameLoop.DayStarted += OnDayStarted;
-            helper.Events.Input.ButtonPressed += OnButtonPressed;
-
-            customMenuOpen = false;
-        }
-
-        /*********
-         ** Private methods
-         *********/
-        /// <summary>Raised after the player loads a save slot and the world is initialised.</summary>
-        private static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
-        {
-            // reset state
-            IsCustomSaving = false;
-            ShouldResetSchedules = false;
-
-            // load positions
-            SaveManager.LoadData();
-        }
-
-        /// <summary>Raised after the game finishes writing data to the save file (except the initial save creation).</summary>
-        internal static void OnSaved(object sender, SavedEventArgs e)
-        {
-            // clear custom data after a normal save (to avoid restoring old state)
-            if (!ModMain.Config.DisableSaveAnyTime && !IsCustomSaving)
-            {
-                SaveManager.ClearData();
-            }
-            else
-            {
-                IsCustomSaving = false;
-            }
-            if (!IsCustomSaving || !ModMain.Config.DisableBackupSaveAnyTime)
-                ModMain.BackupSaves();
-        }
-
         /// <summary>Raised after the game state is updated (≈60 times per second).</summary>
         private static void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
+            if (SkipIntro.Current != SkipIntro.Step.Done)
+                SkipIntro.SkipIntroUpdateTicked();
+
             // let save manager run background logic
             if (Context.IsWorldReady)
             {
@@ -246,7 +180,7 @@ namespace EasySave
                         int y = Convert.ToInt32(fields[3]);
                         int endFacingDir = Convert.ToInt32(fields[4]);
 
-                        schedulePathDescription = ModMain.Reflection
+                        schedulePathDescription = Reflection
                             .GetMethod(npc, "pathfindToNextScheduleLocation")
                             .Invoke<SchedulePathDescription>(npc.currentLocation.Name, npc.getTileX(), npc.getTileY(), endMap, x, y, endFacingDir, null, null);
                         index++;
@@ -304,14 +238,14 @@ namespace EasySave
                 string dayName = Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth);
                 if ((npc.Name.Equals("Penny") && (dayName.Equals("Tue") || dayName.Equals("Wed") || dayName.Equals("Fri"))) || (npc.Name.Equals("Maru") && (dayName.Equals("Tue") || dayName.Equals("Thu"))) || (npc.Name.Equals("Harvey") && (dayName.Equals("Tue") || dayName.Equals("Thu"))))
                 {
-                    ModMain.Reflection
+                    Reflection
                         .GetField<string>(npc, "nameOfTodaysSchedule")
                         .SetValue("marriageJob");
                     return "marriageJob";
                 }
                 if (!Game1.isRaining && schedule.ContainsKey("marriage_" + Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth)))
                 {
-                    ModMain.Reflection
+                    Reflection
                         .GetField<string>(npc, "nameOfTodaysSchedule")
                         .SetValue("marriage_" + Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth));
                     return "marriage_" + Game1.shortDayNameFromDayOfSeason(Game1.dayOfMonth);

@@ -27,14 +27,17 @@ Setting                     | Purpose
 `DeselectOnShift`           | Deselect current tool after shifting toolbar row.
 `ScrollToEmpty`             | When mouse wheel scrolls toolbar slots, scroll into empty slot.
 `AutoToolKey`               | Key to select appropriate tool for the current tool hit location.
-You can hit the key or press and hold it to select tool.
+You can hit the key or press and hold it to select tool. Default is "LeftControl" (Left Control key)
 `WeedsTool`                 | Tool to select to cut "Weeds". One of `"Axe`, `"Scythe"`, or `"Hoe"`.
 `DefaultTool`               | Default tool to select when nothing is appropriate.
-It can be tool name like "Scythe" or numbered slot ("1"-"12") 
-or "none" to select nothing (empty hand) or "keep" for keeping current selected tool.
+
 `DeselectToolKey`           | Key to deselect current tool. (empty hand) Default is `"OemTilde"`(~) key.
 
-For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
+ - For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
+
+ - `DefaultTool` can be tool name like "Scythe" or tool type like "Weapon" or numbered slot ("1"-"12") 
+or "none" to select nothing (empty hand) or "keep" for keeping current selected tool.
+For Underground Mine or Skull Cavern, default tool is "Weapon".
 
 ## Credits
 Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasyToolbar)

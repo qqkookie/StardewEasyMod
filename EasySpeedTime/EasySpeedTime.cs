@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using StardewValley;
+using StardewValley.Locations;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
@@ -54,7 +55,6 @@ namespace EasySpeedTime
 
             Enum.TryParse(Config.JumpKey, true, out JumpKey);
             Enum.TryParse(Config.PauseKey, true, out PauseKey);
-            Enum.TryParse(Config.IntroSkipTo, true, out SkipIntro.SkipTo);
 
             if (Config.MoveSpeedUp < 0 || Config.MoveSpeedUp > 8)
                 Config.MoveSpeedUp = 4;
@@ -67,12 +67,6 @@ namespace EasySpeedTime
                 helper.Events.GameLoop.SaveLoaded += (s, e) => { AutoGate.UpdateGateList();};
                 helper.Events.Player.Warped += (s, e) => { AutoGate.UpdateGateList(); };
                 helper.Events.World.ObjectListChanged += (s, e) => { AutoGate.UpdateGateList(); };
-            }
-
-            if (SkipIntro.SkipTo != SkipIntro.Screen.Intro)
-            {
-                helper.Events.GameLoop.SaveLoaded += SkipIntro.OnSaveLoaded;
-                helper.Events.GameLoop.ReturnedToTitle += SkipIntro.OnReturnedToTitle;
             }
 
             if (!Config.DisableRunningClock || !Config.DisableTimeFreeze)
@@ -117,10 +111,6 @@ namespace EasySpeedTime
         /// <summary>Receives an update tick.</summary>
         private static void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
         {
-
-            if (SkipIntro.Current != SkipIntro.Step.Done)
-                SkipIntro.SkipIntroUpdateTicked();
-
             if (!Context.IsWorldReady)
                 return;
 
@@ -186,13 +176,13 @@ namespace EasySpeedTime
             if (Config.PauseTime > 0 && (now == (LastTime + Config.PauseTime)) && Context.IsPlayerFree)
                 Game1.pauseThenMessage(200, Trans["idlelong"], false);
 
-            if (TimeStopped || FrozenPlace)
+            if ((TimeStopped || FrozenPlace) && Context.IsPlayerFree)
             {
-                Vector2 clkPos = Game1.dayTimeMoneyBox.position;
-                Message.Boxed(Trans["stop"], (int)clkPos.X -120 , (int)clkPos.Y +10);
-            }
+                // Rectangle canvas = Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea;
+                // Vector2 pos = new Vector2(canvas.Right -105, canvas.Bottom - 380);
 
-            // Monitor.Log(((TimeStopped || FrozenPlace) ? "Stopped": "Resumed") + " " + Game1.gameTimeInterval.ToString());
+                Message.Boxed(Trans["stop"], 50, 50);
+            }
         }
 
         private static void OnRenderedHud(object sender, RenderedHudEventArgs e)
@@ -206,15 +196,12 @@ namespace EasySpeedTime
         /// <summary>Should time be frozen for player in this place?</summary>
         private static bool FreezingLocation()
         {
-            GameLocation location = Game1.currentLocation;
+            GameLocation map = Game1.currentLocation;
 
-            if (location is StardewValley.Locations.MineShaft || location.Name.Equals("UndergroundMine"))
-                return Config.FreezeInMine;
+            if (map is MineShaft || map.Name.StartsWith("UndergroundMine"))
+                return Config.FreezeInMineCave;
 
-            if (location is StardewValley.Locations.FarmCave || location.Name.Equals("SkullCave") )
-                return Config.FreezeInCave;
-
-            if (location.IsOutdoors)
+            if (map.IsOutdoors)
                 return (Game1.player.swimming.Value && Config.FreezeOnSwimming);
 
             if (!Config.FreezeInDoor)
@@ -222,7 +209,7 @@ namespace EasySpeedTime
 
             // To freeze while swimming in bathhouse, both FreezeInDoor AND FreezeOnSwimming.
             return (Config.FreezeOnSwimming || !Game1.player.swimming.Value 
-                || !(location is StardewValley.Locations.BathHousePool) );
+                || !(map is BathHousePool) );
         }
 
         private static int CalcSpeedBuff(int speedup = 0)

@@ -7,9 +7,9 @@ using StardewValley.Menus;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-namespace EasySpeedTime
+namespace EasySave
 {
-    using ModMain = EasySpeedTime;
+    using ModMain = EasySave;
 
     //  Skip Intro part of EasySpeedTime class
     internal static class SkipIntro
@@ -64,7 +64,10 @@ namespace EasySpeedTime
                         form.Location = new System.Drawing.Point(win[2], win[3]);
                     }
 
-                    title.receiveKeyPress(Keys.Escape);  // skip intro
+                    // Don't pause on focus loss until game is fully loaded.
+                    Game1.options.pauseWhenOutOfFocus = false;
+
+                    title.skipToTitleButtons();  // skip intro
                     Current = Step.Skipping;
                 }
                 return;
@@ -152,21 +155,10 @@ namespace EasySpeedTime
         }
 
         // Code for loading saved game
-        private static void SetLastFile(string last)
+        internal static void SetLastFile(string last)
         {
             ModMain.Config.LastLoadedSave = last;
             ModMain.ModHelper.WriteConfig(ModMain.Config);
-        }
-
-        internal static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
-        {
-            SetLastFile(Constants.SaveFolderName);
-        }
-
-        internal static void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
-        {
-            if (ModMain.Config.ForgetLastOnTitle)
-                SetLastFile("");
         }
     }
 }

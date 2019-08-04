@@ -1,32 +1,52 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Monsters;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 
 namespace EasySave
 {
-    /// <summary>The mod entry point.</summary>
-    public class EasySave : Mod
+    /// <summary>Save Anywhere + Backup</summary>
+    public partial class EasySave : Mod
     {
         /*********
-        ** Fields
-        *********/
+		** Fields
+		*********/
 
         /// <summary>The folder path containing backups</summary>
-        internal static readonly string BackupsFolder = Path.Combine(Constants.SavesPath, "..", "BackUps");
+        private static readonly string BackupsFolder = Path.Combine(Constants.SavesPath, "..", "BackUps");
 
         /// <summary>The mod configuration.</summary>
         internal static ModConfig Config;
 
         internal static IModHelper ModHelper;
         internal static IReflectionHelper Reflection;
-        internal static IMonitor Logger;
+        private static IMonitor Logger;
+
+        /// <summary>Provides methods for saving and loading game data.</summary>
+        private static SaveManager SaveManager;
+
+        /// <summary>The parsed schedules by NPC name.</summary>
+        private static readonly IDictionary<string, string> NpcSchedules = new Dictionary<string, string>();
+
+        /// <summary>Whether villager schedules should be reset now.</summary>
+        internal static bool ShouldResetSchedules;
+
+        /// <summary>Whether we're performing a non-vanilla save (i.e. not by sleeping in bed).</summary>
+        private static bool IsCustomSaving;
+
+        private static List<Monster> monsters;
+
+        private static bool customMenuOpen;
+
+        private static SButton SaveAnytimeKey;
 
         /*********
         ** Public methods
@@ -41,20 +61,33 @@ namespace EasySave
             Reflection = helper.Reflection;
             Logger = Monitor;
 
-            helper.Events.Display.MenuChanged += OnMenuChanged;
+            Enum.TryParse(Config.IntroSkipTo, true, out SkipIntro.SkipTo);
+            Enum.TryParse(Config.SaveAnytimeKey, true, out SaveAnytimeKey);
+
+            if (SkipIntro.SkipTo != SkipIntro.Screen.Intro && Config.ForgetLastOnTitle)
+                helper.Events.GameLoop.ReturnedToTitle += 
+                    (s, e) => { SkipIntro.SetLastFile(""); };
 
             BackupSaves();
 
-            if (!Config.DisableBackupOnSave)
-                helper.Events.GameLoop.Saved += SaveAnyTime.OnSaved;
+            helper.Events.GameLoop.Saved += OnSaved;
 
             if (!Config.DisableSaveAnyTime)
-                SaveAnyTime.Setup(helper);
+            {
+                SaveManager = new SaveManager();
+
+                helper.Events.GameLoop.SaveLoaded += OnSaveLoaded;
+                helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+                helper.Events.GameLoop.DayStarted += OnDayStarted;
+                helper.Events.Input.ButtonPressed += OnButtonPressed;
+
+                customMenuOpen = false;
+            }
         }
 
         /*********
-        ** Private methods
-        *********/
+         ** Private methods
+         *********/
 
         /// <summary>Back up saves</summary>
         internal static void BackupSaves()
@@ -104,10 +137,48 @@ namespace EasySave
             }
         }
 
-        private static void OnMenuChanged(object sender, MenuChangedEventArgs e)
+        /// <summary>Raised after the game finishes writing data to the save file (except the initial save creation).</summary>
+        internal static void OnSaved(object sender, SavedEventArgs e)
         {
-            if (e.NewMenu is TitleMenu)
-                ;
+            // clear custom data after a normal save (to avoid restoring old state)
+            if (!Config.DisableSaveAnyTime && !IsCustomSaving)
+                SaveManager.ClearData();
+            else
+                IsCustomSaving = false;
+
+            if (!IsCustomSaving || !Config.DisableBackupSaveAnyTime)
+            {
+                if (!Config.DisableBackupOnSave)
+                    BackupSaves();
+
+                if (Config.ShareOptions)
+                {
+                    StartupPreferences options = new StartupPreferences();
+                    options.loadPreferences(false, false);
+                    options.clientOptions = Game1.options;
+                    options.savePreferences(false);
+                }
+            }
+        }
+
+        /// <summary>Raised after the player loads a save slot and the world is initialised.</summary>
+        private static void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
+        {
+            // reset state
+            IsCustomSaving = false;
+            ShouldResetSchedules = false;
+
+            // load positions
+            SaveManager.LoadData();
+
+            SkipIntro.SetLastFile(Constants.SaveFolderName);
+
+            if (Config.ShareOptions)
+            {
+                StartupPreferences options = new StartupPreferences();
+                options.loadPreferences(false, false);
+                Game1.options = options.clientOptions;
+            }
         }
     }
 }

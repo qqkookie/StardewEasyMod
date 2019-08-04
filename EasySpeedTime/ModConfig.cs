@@ -3,20 +3,6 @@
     /// <summary>The mod configuration.</summary>
     public class ModConfig
     {
-        /// <summary>When skipping intro, which screen to go?</summary>
-        /// <remarks>Can be one of "Title", "Load", "Host", "Join", "AutoLoad" and "AutoHost".</remarks>
-        public string IntroSkipTo { get; set; } = "Title";
-
-        /// <summary>Last loaded game. Set and updated automatically.</summary>
-        public string LastLoadedSave { get; set; }
-
-        /// <summary>When returned to title screen, foret last loaded game.</summary>
-        public bool ForgetLastOnTitle { get; set; }
-
-        /// <remarks>Preferred "Windowed" screen resolution and postion of title screen. 
-        /// list of 4 numbers of width, hieght and optional X, Y postion.</remarks>
-        public int[] TitleWindow { get; set; } = { 1920, 1080, -1, -1 };
-
         /// <summary>Speed up players move (run/walk). 0 to 8. 0 for normal speed, 5 for 100% speed up.</summary>
         public int MoveSpeedUp { get; set; } = 2;
 
@@ -52,11 +38,8 @@
         /// <summary>Freeze time while in-door like farm house or store.</summary>
         public bool FreezeInDoor { get; set; } = true;
 
-        /// <summary>Freeze time in the Mine.</summary>
-        public bool FreezeInMine { get; set; } = true;
-
-        /// <summary>Freeze time in the Cave.</summary>
-        public bool FreezeInCave { get; set; } = true;
+        /// <summary>Freeze time in the Mine/SkullCave.</summary>
+        public bool FreezeInMineCave { get; set; } = true;
 
         /// <summary>Freeze time when swimming.</summary>
         public bool FreezeOnSwimming { get; set; } = false;
