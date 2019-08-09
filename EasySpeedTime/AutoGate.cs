@@ -14,7 +14,7 @@ namespace EasySpeedTime
 
         internal static void CheckGates()
         {
-            if (!(Game1.currentLocation is Farm) && !Game1.currentLocation.IsGreenhouse)
+            if (!(Game1.currentLocation is StardewValley.Locations.BuildableGameLocation))
                 return;
 
             Point NewTile = Game1.player.getTileLocationPoint();
