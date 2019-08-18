@@ -1,5 +1,5 @@
-﻿﻿Easy Time Mod
-======
+﻿﻿Easy Speed Time Mod
+========
 
 **Easy Speed Time Mod** is a [Stardew Valley](http://stardewvalley.net/) mod
 which lets you controls times and move speed in the game in various ways.
@@ -38,6 +38,7 @@ Once you run the game, `config.json` text file will be created in the mod's fold
 You can edit it and change setting to configure the mod.
 
 Available settings:
+
 Setting                     | Purpose
 ----------------------------|------------------------------------------------
 `MoveSpeedUp`               | Speed up player move (run/walk). 0 to 8. 0 for normal speed, 5 for 100% speed up.
@@ -57,12 +58,10 @@ Setting                     | Purpose
 For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
 
 ## Note
- - `RoadBuff` is comma-separated list of 11 integers. Default values: [ -1, 0, 1, -1, -1,    -1, 0, 1, 2, 2, -1 ];
-
-[ hoe_dirt = 0, wood, stone, ghost, iceTile, straw,  gravel, boardwalk = 7,
+* `RoadBuff` is comma-separated list of 11 integers. Default values: [ -1, 0, 1, -1, -1,    -1, 0, 1, 2, 2, -1 ];
+* [ hoe_dirt = 0, wood, stone, ghost, iceTile, straw,  gravel, boardwalk = 7,
 	colored_cobblestone, cobblestone, steppingStone = 10 ]
-
- - New translation can be added in `Translation.json` file. Encoding is UTF-8.
+* New translation can be added in `Translation.json` file. Encoding is UTF-8.
 
 ## Credits
 Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasySpeedTime)

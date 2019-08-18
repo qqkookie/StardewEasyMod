@@ -91,7 +91,10 @@ namespace EasySpeedTime
 
         private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            if (e.Button == JumpKey)
+            if (!Context.IsPlayerFree)
+                return;
+
+            if (Context.CanPlayerMove &&e.Button == JumpKey)
                 JumpSwim.StartJump();
 
             if (Config.DisableTimeFreeze)
@@ -99,7 +102,7 @@ namespace EasySpeedTime
 
             LastTime = Game1.ticks / 60;
 
-            if ( e.Button == PauseKey && Context.IsPlayerFree && !FrozenPlace)
+            if (e.Button == PauseKey && !FrozenPlace)
             {
                 TimeStopped = !TimeStopped; // toggle
                 Message.OnScreen((TimeStopped ? Trans["pause"] : Trans["resume"]), 100, 100);

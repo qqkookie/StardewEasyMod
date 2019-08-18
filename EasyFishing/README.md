@@ -1,5 +1,5 @@
 ﻿﻿Easy Fishing Mod
-======
+========
 
 **Easy Fishing Mod** is a [Stardew Valley](http://stardewvalley.net/) game mod
 that shows fishing-related infos and customize the fishing experience for easier fishing.
@@ -39,6 +39,7 @@ You can edit it and change setting to configure the mod.
 Configuration is refreshed when game save is loaded.
 
 Available settings:
+
 Setting                     | Purpose
 ----------------------------|-----------
 `DisableFishingSpotInfo`    | Don't show fish probabilities info of current fishing spot.
@@ -56,18 +57,19 @@ Setting                     | Purpose
 `AlwaysPerfect`             | Force every fish catch to be perfectly executed, even if it wasn't.
 `EasyFish`                  | Reduce difficulty of fish. 0 is normal, 90 is the easiest.
 `SlowReel`                  | Slow down movement of angling reel: reduction by percent. 0 is normal, 90 is the slowest.
-`ExpandBar`					| Expand size of green moving bar in percent. 0 is normal.
+`ExpandBar`                 | Expand size of green moving bar in percent. 0 is normal.
 `ProgressStart`             | Set initial catch progress by percent.
-`ProgressBoost`             | Boost catch progress rate by percent. 0 is normal.
-Below 100, slow progress drain. At 100, no decay. Above 100, faster progress.
+`ProgressBoost`             | Boost catch progress rate by percent. 
 `AlwaysTreasure`            | Always find treasure.
 `CatchTreasure`             | On successful fish catch, catch treasure also without fail.
-`LastingBait`               | Fishing bait lasts multiple times. 2 means double the life.
-`LastingTackle`             | Fishing tackle lasts longer times. 2 means double the life.
+`LastingBait`               | Fishing bait lasts longer by percent. 50 means 150% the life.
+`LastingTackle`             | Fishing tackle lasts longer by percent. 100 means double the life.
 
 For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
 
 ## Note on fishing practice
+* For `ProgressBoost`, 0 is normal. Below 100, slow progress drain. At 100, no decay. 
+Above 100, faster progress.
 * Fish caught on practice does not count. No new fish in your inventory,
 no fishing experience or level gain, no fish count or size record or collection,
 no bait/tackle consumption and no stamina drain. Just finger training for you, gamer.
@@ -75,8 +77,8 @@ no bait/tackle consumption and no stamina drain. Just finger training for you, g
 like [ "anchovy", "참치", "AnChOvY" ]. Names are in case-less English like
 "salmon" or native word like "연어". Empty list ([]) means all fishes in the game.
 Duplicate for frequent choice.
-* For list of all fish names, refer [official wiki](https://stardewvalleywiki.com/Fish) 
-or "FishList.txt" file included FYI in mod folder.
+* For list of all fish names, refer [official wiki](https://stardewvalleywiki.com/Fish) or "FishList.txt" file included FYI in mod folder.
+* If `LastingBait` or `LastingTackle` is not set, default is 20% longer life per fishing skill level.
 
 ## Credits
 Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasyFishing)

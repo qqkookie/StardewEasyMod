@@ -1,8 +1,8 @@
 {
-  "Name": "EasySave",
+  "Name": "Easy Save",
   "Author": "Cookie",
   "Version": "1.0.0",
-  "Description": "Automatic save file backup and save anytime",
+  "Description": "Save game anytime and automatic save file backup",
   "UniqueID": "Cookie.EasySave",
   "EntryDll": "EasySave.dll",
   "MinimumApiVersion": "2.10",

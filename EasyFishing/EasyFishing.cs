@@ -258,20 +258,25 @@ namespace EasyFishing
                     return;
 
                 // apply lasting bait/tackle : Only once per catch.
-                if (rod.attachments[0] != null && Config.LastingBait > 1 
-                    && Game1.random.Next(Config.LastingBait) != 0)
-                    rod.attachments[0].Stack = Math.Min(rod.attachments[0].Stack + 1,
-                        rod.attachments[0].maximumStackSize());
+                if (rod.attachments[0] != null && rod.attachments[0].Stack < rod.attachments[0].maximumStackSize()
+                    && Game1.random.NextDouble() > LossRatio(Config.LastingBait))
+                    rod.attachments[0].Stack++;
 
-                if (rod.attachments[1] != null && Config.LastingTackle > 1
-                    && rod.attachments[1].uses.Value > 0 && Game1.random.Next(Config.LastingTackle) != 0)
+                if (rod.attachments[1] != null && rod.attachments[1].uses.Value > 0 
+                    && Game1.random.NextDouble() > LossRatio(Config.LastingTackle))
                 {
                     rod.attachments[1].uses.Value--;
-                    rod.attachments[1].scale.Y = 0.05f * rod.attachments[1].uses.Value;
+                    rod.attachments[1].scale.Y = ((float) rod.attachments[1].uses.Value)/ FishingRod.maxTackleUses;
                 }
             }
 
             Bobber = null;
+        }
+
+        private static double LossRatio(int percent)
+        {
+            double r = (percent <= 0) ? Game1.player.FishingLevel * 0.2 : percent / 100.0;
+            return 1.0 /(1.0 + r); 
         }
 
         private static void OnUpdateTicking(object sender, UpdateTickingEventArgs e)

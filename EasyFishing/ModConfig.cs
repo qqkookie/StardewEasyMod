@@ -64,11 +64,11 @@
         /// <summary>On successful fish catch, catch treasure also without fail.</summary>
         public bool CatchTreasure { get; set; } = true;
 
-        /// <summary>Fishing bait lasts multiple times. 2 means double the life.</summary>
-        public int LastingBait { get; set; } = 2;
+        /// <summary>Fishing bait lasts longer by percent. 50 means 150% the life.</summary>
+        public int LastingBait { get; set; }
 
-        /// <summary>Fishing tackle lasts longer times. 2 means double the life.</summary>
-        public int LastingTackle { get; set; } = 2;
+        /// <summary>Fishing tackle lasts longer by percent. 100 means double the life.</summary>
+        public int LastingTackle { get; set; }
 
     }
 }
