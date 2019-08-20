@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 using StardewValley;
 using StardewValley.Locations;
@@ -9,8 +8,7 @@ using StardewModdingAPI.Events;
 
 namespace EasySpeedTime
 {
-
-/// <summary>The mod entry point.</summary>
+    /// <summary>The mod entry point.</summary>
     public class EasySpeedTime : Mod
     {
         /*********
@@ -91,10 +89,10 @@ namespace EasySpeedTime
 
         private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
-            if (!Context.IsPlayerFree)
+            if (!Context.CanPlayerMove)
                 return;
 
-            if (Context.CanPlayerMove &&e.Button == JumpKey)
+            if (e.Button == JumpKey)
                 JumpSwim.StartJump();
 
             if (Config.DisableTimeFreeze)
@@ -258,4 +256,3 @@ namespace EasySpeedTime
 
     }
 }
-

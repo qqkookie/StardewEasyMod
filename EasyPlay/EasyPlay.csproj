@@ -7,8 +7,8 @@
     <ProjectGuid>{5DCA4B42-D663-497C-947D-EF7B72F4F670}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EasyMine</RootNamespace>
-    <AssemblyName>EasyMine</AssemblyName>
+    <RootNamespace>EasyPlay</RootNamespace>
+    <AssemblyName>EasyPlay</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -32,30 +32,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LadderFinder.cs" />
+    <Compile Include="DontAskToEat.cs" />
+    <Compile Include="EasyHorse.cs" />
+    <Compile Include="EasyPlay.cs" />
     <Compile Include="ModConfig.cs" />
-    <Compile Include="EasyMine.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SkullElevator.cs" />
     <Compile Include="SkullElevatorMenu.cs" />
     <Compile Include="SkullElevatorMenuScroll.cs" />
+    <Compile Include="LadderFinder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="2.2.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="manifest.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Stardew Valley">
       <HintPath>D:\GAMES\Stardew Valley\Stardew Valley.exe</HintPath>
     </Reference>
     <Reference Include="StardewModdingAPI">
       <HintPath>D:\GAMES\Stardew Valley\StardewModdingAPI.exe</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\WhistleSoundBank.xsb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WhistleWaveBank.xwb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="manifest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build.targets" />

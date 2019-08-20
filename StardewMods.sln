@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasySpeedTime", "EasySpeedT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyToolbar", "EasyToolbar\EasyToolbar.csproj", "{9667360E-C450-40D7-A34F-DAC679A9F674}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyMine", "EasyMine\EasyMine.csproj", "{5DCA4B42-D663-497C-947D-EF7B72F4F670}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyPlay", "EasyPlay\EasyPlay.csproj", "{5DCA4B42-D663-497C-947D-EF7B72F4F670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

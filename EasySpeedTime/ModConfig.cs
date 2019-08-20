@@ -1,4 +1,4 @@
-﻿namespace EasySpeedTime
+namespace EasySpeedTime
 {
     /// <summary>The mod configuration.</summary>
     public class ModConfig

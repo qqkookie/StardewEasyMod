@@ -6,7 +6,6 @@ using StardewValley;
 using StardewValley.BellsAndWhistles;
 using StardewValley.Menus;
 
-
 namespace EasySpeedTime
 {
     public class Message

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -12,17 +12,19 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 
-namespace EasyMine
+namespace EasyPlay
 {
+    using ModMain = EasyPlay;
+
     static class LadderFinder
     {
         private static Texture2D pixelTexture;
         private static List<Vector2> LadderStones;
         private static bool NextIsLadder;
 
-        static IReflectionHelper Reflection => EasyMine.Reflection;
+        static IReflectionHelper Reflection => ModMain.Reflection;
 
-        internal static void SetupLadderFinder(IModEvents events)
+        internal static void Setup()
         {
             pixelTexture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             Color[] colorArray = Enumerable.Range(0, 1).Select(i => Color.White).ToArray();
@@ -30,10 +32,9 @@ namespace EasyMine
 
             LadderStones = new List<Vector2>();
 
-            events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
-            events.Display.RenderedWorld += OnRenderedWorld;
-            //  events.Input.ButtonPressed += OnButtonPressed;
-            events.Player.Warped += OnWarped;
+            ModMain.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
+            ModMain.Events.Display.RenderedWorld += OnRenderedWorld;
+            ModMain.Events.Player.Warped += OnWarped;
         }
 
         internal static void OnOneSecondUpdateTicked(object sender, OneSecondUpdateTickedEventArgs e)
@@ -46,7 +47,7 @@ namespace EasyMine
             else if ( Reflection.GetField<bool>(Game1.mine, "ladderHasSpawned").GetValue())
                 LadderStones.Clear();
 
-            if (EasyMine.Config.ForceLadder && Game1.mine.getMineArea(-1) == 121 // Skull Mine area
+            if (EasyPlay.Config.ForceLadder && Game1.mine.getMineArea(-1) == 121 // Skull Mine area
                 && !NextIsLadder && LadderStones.Count > 0)
             {
                 Random mineRandom = Reflection.GetField<Random>(Game1.mine, "mineRandom").GetValue();

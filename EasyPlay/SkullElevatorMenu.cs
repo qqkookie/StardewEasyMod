@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -6,7 +6,7 @@ using StardewValley;
 using StardewValley.Locations;
 using StardewValley.Menus;
 
-namespace EasyMine
+namespace EasyPlay
 {
     public class SkullElevatorMenu : MineElevatorMenu
     {

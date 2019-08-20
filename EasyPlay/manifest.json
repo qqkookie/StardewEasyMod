@@ -1,0 +1,10 @@
+{
+  "Name": "Easy Play",
+  "Author": "Cookie",
+  "Version": "1.0.0",
+  "Description": "Various game play mod's by Cookie for easier gaming",
+  "UniqueID": "Cookie.EasyPlay",
+  "EntryDll": "EasyPlay.dll",
+  "MinimumApiVersion": "2.11",
+  "UpdateKeys": [ "Nexus:9999" ]
+}

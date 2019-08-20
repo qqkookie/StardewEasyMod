@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using xTile;
 using xTile.Tiles;
 
@@ -8,22 +8,24 @@ using StardewValley.Menus;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-namespace EasyMine
+namespace EasyPlay
 {
+    using ModMain = EasyPlay;
+
     internal static class SkullElevator
     {
-        internal static ModConfig Config => EasyMine.Config;
-        internal static IReflectionHelper Reflection => EasyMine.Reflection;
+        //internal static ModConfig Config => Config;
+        internal static IReflectionHelper Reflection => ModMain.Reflection;
 
         internal const int ElevatorStep = 5;
         internal const float DifficultyScale = 1.0f;
         internal const int ELEVATORSIZE = 121;
 
-        internal static void SetupSkullElevator(IModEvents events)
+        internal static void Setup()
         {
-            events.Player.Warped += MineEvents_MineLevelChanged;
-            events.Display.MenuChanged += MenuChanged;
-            events.GameLoop.SaveLoaded += SetUpSkullCave;
+            ModMain.Events.Player.Warped += MineEvents_MineLevelChanged;
+            ModMain.Events.Display.MenuChanged += MenuChanged;
+            ModMain.Events.GameLoop.SaveLoaded += SetUpSkullCave;
         }
 
         private static void SetUpSkullCave(object sender, SaveLoadedEventArgs e)
