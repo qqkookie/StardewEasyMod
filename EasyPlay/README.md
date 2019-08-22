@@ -31,10 +31,13 @@ Available settings:
 
 Setting                     | Purpose
 ----------------------------|------------------------------------------------
-`ForceLadder`               | Force ladder to be generated when you break first stone.
-`DisableDontAskToEat`       | Restore eating/drinking action and dialogue.
-`EatPrefixKey`              | To allow eating something not in the food list, press this key before eat it.
-`Foods`                     | List of food names allowed to eat/drink. Confirm dialogue will appear.
+`ForceLadder`               | Find Ladder: Force breaking next stone will generate ladder.
+`DisableEasyHorse`          | Easy Horse: Disable horse whistle and slim horse.
+`HorseWhistleKey`           | Horse Whistle: Key to summon horse to player. Default is `'V'` key.
+`DisableWhistleSound`       | Horse Whistle: Disable whistle sound.
+`DisableDontAskToEat`       | Don't Ask to Eat: Restore eating/drinking action and dialogue.
+`EatPrefixKey`              | Don't Ask to Eat: Key to allow eating something not in the food list.
+`Foods`                     | Don't Ask to Eat: Eat/drink only these in the foods list. Don't ask to eat other edibles.
 
  * The `Foods` list is name list of permitted foods. Name can be either localized display name or English name,
 upper/lower case is ignored. For edible items not listed here, confirm dialogue will be blocked.

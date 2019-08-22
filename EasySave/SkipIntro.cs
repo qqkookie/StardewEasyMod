@@ -1,11 +1,10 @@
 using System;
 using System.IO;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework;
 
 using StardewValley;
 using StardewValley.Menus;
 using StardewModdingAPI;
-using StardewModdingAPI.Events;
 
 namespace EasySave
 {
@@ -114,13 +113,7 @@ namespace EasySave
                         if (SkipTo == Screen.AutoHost)
                             Game1.multiplayerMode = 2;  // server mode
 
-                        SaveGame.Load(lastLoaded);  // load last save
-                        // SetLastFile("");
-
-                        title.exitThisMenu(false);
-
-                        Current = Step.AutoLoading;
-                        return;
+                        Game1.activeClickableMenu = new AutoLoader(lastLoaded);
                     }
                 }
             }
@@ -136,20 +129,6 @@ namespace EasySave
                     submenu.receiveLeftClick(submenu.hostTab.bounds.X, submenu.hostTab.bounds.Y, playSound: false);
                 }
             }
-            else if (Current == Step.AutoLoading)
-            {
-                // currently not working code.
-                /*
-                string str2 = Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.3688") + "... ";
-                int widthOfString = SpriteText.getWidthOfString(str2);
-                int height = 64;
-                Game1.spriteBatch.Begin();
-                SpriteText.drawString(Game1.spriteBatch, str2, 100, 100,
-                    999999, widthOfString, height, 1f, 0.88f, false, 0, str2, -1);
-                Game1.spriteBatch.End();
-                return;
-                */
-            }
 
             Current = Step.Done;
         }
@@ -159,6 +138,30 @@ namespace EasySave
         {
             ModMain.Config.LastLoadedSave = last;
             ModMain.ModHelper.WriteConfig(ModMain.Config);
+        }
+
+        private class AutoLoader : IClickableMenu
+        {
+            private int WaitCnt = 30;   // Wait until main loop displays "Loading..." message.
+            private string SaveName;
+
+            internal AutoLoader(string savefile)
+            {
+                Game1.gameMode = Game1.loadingMode;     // Trick main loop to diaplay "Loading..." message"
+                SaveName = savefile;
+            }
+
+            public override void update(GameTime time)
+            {
+                base.update(time);
+
+                if (WaitCnt == 0)
+                {
+                    SaveGame.Load(SaveName);  // load last save
+                    exitThisMenu(false);
+                }
+                WaitCnt--;
+            }
         }
     }
 }

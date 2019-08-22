@@ -36,11 +36,11 @@ namespace EasyPlay
         private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
         {
             if (Context.CanPlayerMove && e.Button == HorseWhistleKey)
-                RecallHorse();
+                SummonHorse();
         }
 
-        /// <summary>Recall player's horse here.</summary>
-        internal static void RecallHorse()
+        /// <summary>Summon player's horse here.</summary>
+        internal static void SummonHorse()
         {
             Horse horse = FindHorse();
             if (horse != null)
