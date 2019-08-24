@@ -55,7 +55,7 @@ namespace EasySpeedTime
             Enum.TryParse(Config.PauseKey, true, out PauseKey);
 
             if (Config.MoveSpeedUp < 0 || Config.MoveSpeedUp > 8)
-                Config.MoveSpeedUp = 4;
+                Config.MoveSpeedUp = 2;
 
             helper.Events.Input.ButtonPressed += OnButtonPressed;
             helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
@@ -134,23 +134,23 @@ namespace EasySpeedTime
 
             Farmer player = Game1.player;
             // apply various buff conditions
-            int speedAdd = CalcSpeedBuff();
+            int speedBoost= CalcSpeedBuff();
 
             if (! Context.CanPlayerMove || !player.isMoving() || player.swimming.Value || player.controller != null)
             {
                 player.addedSpeed = 0;
             }
-            else if (Game1.player.mount != null)
-            {   // TODO: need work
-                Game1.player.mount.addedSpeed = speedAdd + Config.HorseSpeedUp;
+            else if (Game1.player.isRidingHorse())
+            {
+                player.addedSpeed = speedBoost + Config.HorseSpeedUp;
             }
             else
             {
-                speedAdd += Config.MoveSpeedUp;
+                speedBoost += Config.MoveSpeedUp;
                 // Normal speed: walking = 2, running = 5.
                 if (!player.running)
-                    speedAdd = (speedAdd == 1) ? 0 : (speedAdd + 1) / 2;
-                player.addedSpeed = speedAdd;
+                    speedBoost = (speedBoost == 1) ? 0 : (speedBoost + 1) / 2;
+                player.addedSpeed = speedBoost;
             }
         }
 

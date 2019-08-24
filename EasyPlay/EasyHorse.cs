@@ -4,8 +4,10 @@ using System.Linq;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Input;
 
 using StardewValley;
+using StardewValley.Buildings;
 using StardewValley.Characters;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -14,60 +16,141 @@ namespace EasyPlay
 {
     using ModMain = EasyPlay;
 
-    internal static class EasyHorse
+    internal class EasyHorse : Horse
     {
-        internal static SButton HorseWhistleKey;
+        private static EasyHorse MyHorse = null;    // singleton
 
-        private static SlimHorse MyHorse;
+        private static Horse BaseHorse = null;
 
         internal static void Setup()
         {
             Enum.TryParse(ModMain.Config.HorseWhistleKey, true, out HorseWhistleKey);
 
-            if ( ModMain.Config.DisableEasyHorse)
+            if (!ModMain.Config.DisableEasyHorse)
             {
-                ModMain.Events.GameLoop.SaveLoaded += (s, e) => MyHorse = new SlimHorse();
-                ModMain.Events.GameLoop.Saved += (s, e) => MyHorse = new SlimHorse();
-                ModMain.Events.GameLoop.Saving += (s, e) => MyHorse.Restore();
+                ModMain.Events.GameLoop.SaveLoaded += (s, e) => CopyAndReplace();
+                ModMain.Events.GameLoop.Saved += (s, e) => CopyAndReplace();
+                ModMain.Events.GameLoop.Saving += (s, e) => Restore();
                 ModMain.Events.Input.ButtonPressed += OnButtonPressed;
             }
         }
 
-        private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        private static void CopyHorse(Horse src, Horse dest)
         {
-            if (Context.CanPlayerMove && e.Button == HorseWhistleKey)
-                SummonHorse();
+            dest.HorseId = src.HorseId;
+            dest.Name = src.Name;
+            dest.currentLocation = src.currentLocation;
+            dest.Position = src.Position;
+            dest.rider = src.rider;
+            dest.hat.Value = src.hat.Value;
         }
 
-        /// <summary>Summon player's horse here.</summary>
-        internal static void SummonHorse()
+        private static void CopyAndReplace()
         {
-            Horse horse = FindHorse();
-            if (horse != null)
+            if (BaseHorse == null)
             {
-                Game1.warpCharacter(horse, Game1.currentLocation, Game1.player.getTileLocation());
+                // Get my stable
+                Stable stable = Game1.getFarm().buildings.OfType<Stable>()
+                    .Where(bld => bld.GetType().FullName?.Contains("TractorMod") == false
+                    && (!Context.IsMultiplayer || bld.owner.Value == Game1.player.UniqueMultiplayerID))
+                    .FirstOrDefault();
+
+                if (stable == null)
+                    return;
+
+                BaseHorse = Utility.findHorse(stable.HorseId);
+                if (BaseHorse == null)
+                    return;
+                if (BaseHorse.Name != Game1.player.horseName.Value)
+                    Game1.player.horseName.Value = BaseHorse.Name;
+            }
+
+            if (MyHorse == null)
+                MyHorse = new EasyHorse();
+
+            CopyHorse(BaseHorse, MyHorse);
+
+            var npcs = MyHorse.currentLocation.characters;
+
+            for (int index = 0; index < npcs.Count; ++index)
+            {
+                if (npcs[index] == BaseHorse)
+                {
+                    npcs[index] = MyHorse;
+                    return;
+                }
+            }
+        }
+
+        private static void Restore()
+        {
+            if (BaseHorse == null || MyHorse == null)
+                return;
+
+            var npcs = MyHorse.currentLocation.characters;
+
+            for (int index = 0; index < npcs.Count; ++index)
+            {
+                if (npcs[index] == MyHorse)
+                {
+                    CopyHorse(MyHorse, BaseHorse);
+                    npcs[index] = BaseHorse;
+                    return;
+                }
+            }
+        }
+
+        public override Rectangle GetBoundingBox()
+        {
+            Rectangle boundingBox = base.GetBoundingBox();
+
+            if (this.rider != null)
+                boundingBox.Width = Game1.tileSize * 2 / 3;
+
+            return boundingBox;
+        }
+
+
+        private static SButton HorseWhistleKey;
+
+        private static void OnButtonPressed(object sender, ButtonPressedEventArgs e)
+        {
+            Farmer player = Game1.player;
+            Horse horse = MyHorse;
+            if (e.Button != HorseWhistleKey || !Context.CanPlayerMove|| horse == null
+                || horse.rider != null || String.IsNullOrWhiteSpace(player.horseName.Value))
+                return;
+
+            float distance = (player.currentLocation ==  horse.currentLocation)
+               ? Vector2.Distance(player.getTileLocation(), horse.getTileLocation()): 999;
+            bool ctlDown = Keyboard.GetState().IsKeyDown(Keys.LeftControl);
+
+            if (ctlDown && distance < 2.0 )
+            {
+                if (horse.hat.Value == null)
+                    return;
+                // Remove hat of horse
+                if (player.addItemToInventory(horse.hat.Value) != null)
+                    Game1.createItemDebris(horse.hat.Value, horse.position, horse.facingDirection, null, -1);
+                horse.hat.Value = null;
+                Game1.playSound("dirtyHit");
+            }
+            else if (!ctlDown && distance > 10)
+            {
+                //  Summon player's horse here.
+                Vector2 tile = Utility.recursiveFindOpenTileForCharacter(
+                    player, player.currentLocation, player.getTileLocation(), 8);
+                if (tile == Vector2.Zero)
+                    Game1.player.getTileLocation();
+
+                Game1.warpCharacter(MyHorse, Game1.currentLocation, tile);
 
                 if (!ModMain.Config.DisableWhistleSound && Constants.TargetPlatform == GamePlatform.Windows)
                     PlayWhistle();
             }
         }
 
-        internal static Horse FindHorse()
-        {
-            // Get all stables in the game
-            var stables = from location in Game1.locations.OfType<StardewValley.Locations.BuildableGameLocation>()
-                          from stable in location.buildings.OfType<StardewValley.Buildings.Stable>()
-                          where stable.GetType().FullName?.Contains("TractorMod") != true
-                          select stable;
-            if (stables.Count() == 0)
-                return null;
-
-            Horse horse = (from stable in stables
-                 where !Context.IsMultiplayer || stable.owner.Value == Game1.player.UniqueMultiplayerID
-                 select Utility.findHorse(stable.HorseId)).FirstOrDefault(h => h != null && h.rider == null);
-
-            return horse;
-        }
+        // for Horse Whistle sound
 
         private static int LoadSound = 0;
         private static ISoundBank MySoundBank = null;
@@ -75,14 +158,15 @@ namespace EasyPlay
         private static ISoundBank OrgSoundBank = Game1.soundBank;
         private static WaveBank OrgWaveBank = Game1.waveBank;
 
-        internal static void PlayWhistle()
+        private static void PlayWhistle()
         {
-            if (LoadSound < 0 )
+            if (LoadSound < 0)
                 return;
 
             if (LoadSound == 0)
             {
-                try {
+                try
+                {
                     MySoundBank = new SoundBankWrapper(new SoundBank(Game1.audioEngine,
                         Path.Combine(ModMain.ModHelper.DirectoryPath, "Assets", "WhistleSoundBank.xsb")));
                     MyWaveBank = new WaveBank(Game1.audioEngine,
@@ -111,58 +195,6 @@ namespace EasyPlay
                 Game1.waveBank = OrgWaveBank;
                 Game1.audioEngine.Update();
             }
-        }
-    }
-
-    internal class SlimHorse : Horse
-    {
-        internal static Horse BaseHorse;
-
-        public SlimHorse()
-        {
-            BaseHorse = EasyHorse.FindHorse();
-
-            if (BaseHorse == null)
-                return;
-
-            var npcs = this.currentLocation.characters;
-
-            for (int index = 0; index < npcs.Count; ++index)
-            {
-                if (npcs[index] == BaseHorse)
-                {
-                    npcs[index] = this;
-                    return;
-                }
-            }
-        }
-
-        internal void Restore()
-        {
-            if (BaseHorse == null)
-                return;
-
-            var npcs = this.currentLocation.characters;
-
-            for (int index = 0; index < npcs.Count; ++index)
-            {
-                if (npcs[index] == this)
-                {
-                    npcs[index] = BaseHorse;
-                    return;
-                }
-            }
-        }
-
-        public override Rectangle GetBoundingBox()
-        {
-            Rectangle boundingBox = base.GetBoundingBox();
-
-            if (!this.mounting.Value)
-                return boundingBox;
-
-            boundingBox.Inflate(-14 - Game1.pixelZoom, 0);
-            return boundingBox;
         }
     }
 }
