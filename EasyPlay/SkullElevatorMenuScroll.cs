@@ -9,7 +9,7 @@ using StardewValley.Menus;
 namespace EasyPlay
 {
     public class SkullElevatorMenuScroll : MineElevatorMenu
-    { 
+    {
         private const int ELEVATORSIZE = 121;
         private const int SCROLLSTEP = 11;
 
@@ -164,8 +164,8 @@ namespace EasyPlay
             }
             else if (this.scrollBar.containsPoint(x, y))
                 this.scrolling = true;
-            else if (!this.downArrow.containsPoint(x, y) && x > this.xPositionOnScreen + this.width 
-                && (x < this.xPositionOnScreen + this.width + 128 && y > this.yPositionOnScreen) 
+            else if (!this.downArrow.containsPoint(x, y) && x > this.xPositionOnScreen + this.width
+                && (x < this.xPositionOnScreen + this.width + 128 && y > this.yPositionOnScreen)
                 && y < this.yPositionOnScreen + this.height)
             {
                 this.scrolling = true;
@@ -177,7 +177,7 @@ namespace EasyPlay
                 bool flag = false;
 
                 foreach(ClickableComponent current in this.elevators)
-                { 
+                {
                     if (!current.containsPoint(x, y))
                         continue;
 
@@ -238,7 +238,7 @@ namespace EasyPlay
             b.Draw(Game1.mouseCursors, new Vector2(elevator.bounds.X, elevator.bounds.Y), new Rectangle(elevator.scale > 1.0f ? 267 : 256, 256, 10, 10), Color.White, 0.0f, Vector2.Zero, 4f, SpriteEffects.None, 0.868f);
 
             int floor = Convert.ToInt32(elevator.name);
-            Vector2 vector2 = new Vector2((elevator.bounds.X + 16 + NumberSprite.numberOfDigits(floor) * 6), 
+            Vector2 vector2 = new Vector2((elevator.bounds.X + 16 + NumberSprite.numberOfDigits(floor) * 6),
                 (elevator.bounds.Y + 24 - NumberSprite.getHeight() / 4));
 
             bool skull = ((Game1.CurrentMineLevel == floor + 120) && Game1.currentLocation.Equals(Game1.mine))

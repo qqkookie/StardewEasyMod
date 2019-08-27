@@ -55,7 +55,7 @@ namespace EasySpeedTime
             OldAdjTiles = new Vector2[] { };
 
             Game1.currentLocation.Objects.AsParallel().OfType<Dictionary<Vector2, Fence>>().SelectMany(d => d)
-                .Where(kv => (kv.Value is Fence gate) && gate.isGate.Value && 
+                .Where(kv => (kv.Value is Fence gate) && gate.isGate.Value &&
                     (gate.name.Contains("Fence") || gate.name.Contains("Gate")))
                 .ForAll(gate => GateList.Add(gate.Key, gate.Value));
         }

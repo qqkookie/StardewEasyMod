@@ -74,7 +74,7 @@ namespace EasySpeedTime
             {
                 helper.Events.GameLoop.OneSecondUpdateTicked += OnOneSecondUpdateTicked;
 
-                // read translations 
+                // read translations
                 Dictionary<string, Dictionary<string, string>> dicts = helper.Data.ReadJsonFile
                     <Dictionary<string, Dictionary<string, string>>>("Translation.json");
 
@@ -103,7 +103,7 @@ namespace EasySpeedTime
             if (e.Button == PauseKey && !FrozenPlace)
             {
                 TimeStopped = !TimeStopped; // toggle
-                Message.OnScreen((TimeStopped ? Trans["pause"] : Trans["resume"]), 100, 100);
+                Message.OnScreen((TimeStopped ? Trans["pause"] : Trans["resume"]), 150, 60);
             }
             else
                 TimeStopped = false;
@@ -160,7 +160,7 @@ namespace EasySpeedTime
                 return;
             if (Game1.player.swimming.Value)
                 JumpSwim.CheckForSwimSuit();
-            if ( Context.IsMultiplayer)
+            if (Context.IsMultiplayer)
                 return;
 
             int now = Game1.ticks/60;
@@ -176,14 +176,6 @@ namespace EasySpeedTime
 
             if (Config.PauseTime > 0 && (now == (LastTime + Config.PauseTime)) && Context.IsPlayerFree)
                 Game1.pauseThenMessage(200, Trans["idlelong"], false);
-
-            if ((TimeStopped || FrozenPlace) && Context.IsPlayerFree)
-            {
-                // Rectangle canvas = Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea;
-                // Vector2 pos = new Vector2(canvas.Right -105, canvas.Bottom - 380);
-
-                Message.Boxed(Trans["stop"], 50, 50);
-            }
         }
 
         private static void OnRenderedHud(object sender, RenderedHudEventArgs e)
@@ -191,6 +183,13 @@ namespace EasySpeedTime
             if(!Config.DisableRunningClock)
                 RunningClock.Draw(e.SpriteBatch);
 
+            if ((TimeStopped || FrozenPlace) && Context.IsPlayerFree)
+            {
+                // Rectangle canvas = Game1.graphics.GraphicsDevice.Viewport.TitleSafeArea;
+                // Vector2 pos = new Vector2(canvas.Right -105, canvas.Bottom - 380);
+
+                Message.Boxed(Trans["stop"], 50, 50, 0.1f);
+            }
             Message.Draw(e.SpriteBatch);
         }
 
@@ -209,7 +208,7 @@ namespace EasySpeedTime
                 return false;
 
             // To freeze while swimming in bathhouse, both FreezeInDoor AND FreezeOnSwimming.
-            return (Config.FreezeOnSwimming || !Game1.player.swimming.Value 
+            return (Config.FreezeOnSwimming || !Game1.player.swimming.Value
                 || !(map is BathHousePool) );
         }
 
@@ -234,10 +233,10 @@ namespace EasySpeedTime
             if (map.terrainFeatures.TryGetValue(player.getTileLocation(),
                     out StardewValley.TerrainFeatures.TerrainFeature tile) && tile != null)
             {
-                // { hoe_dirt = 0,  wood = 1, stone, ghost, iceTile, straw = 5, gravel, 
+                // { hoe_dirt = 0,  wood = 1, stone, ghost, iceTile, straw = 5, gravel,
                 //  boardwalk = 7, colored_cobblestone, cobblestone, steppingStone = 10, }
                 //  See StardewValley.TerrainFeatures.Flooring class defintion
-                //  flooring.whichFloor.Value + 1 is used as index. 0 is for hoe_dirt. 
+                //  flooring.whichFloor.Value + 1 is used as index. 0 is for hoe_dirt.
                 int pave = -1;
                 if (tile is StardewValley.TerrainFeatures.Flooring flooring)
                     pave = flooring.whichFloor.Value + 1;

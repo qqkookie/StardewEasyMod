@@ -17,7 +17,7 @@ namespace EasySave
         public enum Screen
         {
             Intro,
-            Title,          /// <summary>Main title screen.</summary>       
+            Title,          /// <summary>Main title screen.</summary>
             Load,           /// <summary>Load game screen.</summary>
             Host,           /// <summary>Co-op screen on the host tab.</summary>
             Join,           /// <summary>Co-op screen on the join tab.</summary>
@@ -44,7 +44,7 @@ namespace EasySave
             // start intro skip on game launch
             if (Current == Step.Launching)
             {
-                // wait until the game is ready 
+                // wait until the game is ready
                 if (Game1.activeClickableMenu is TitleMenu title && Game1.currentGameTime != null)
                 {
                     int[] win = ModMain.Config.TitleWindow;
@@ -75,7 +75,7 @@ namespace EasySave
             {
                 TitleMenu title = (TitleMenu)Game1.activeClickableMenu;
 
-                // skip to other screen   
+                // skip to other screen
                 if (SkipTo == Screen.Title)
                 {
                     // skip button transition

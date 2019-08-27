@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -251,7 +251,7 @@ namespace EasyFishing
 
             var dummyTexture = new Texture2D(sb.GraphicsDevice, 1, 1);
             dummyTexture.SetData(new Color[] { Color.OldLace });
-            // paint white color over old original fish size text 
+            // paint white color over old original fish size text
             sb.Draw(dummyTexture, pos + new Vector2(-13f, 0), new Rectangle(0, 0, 120, 40), Color.White, 0.0f,
                 Vector2.Zero, 1f, SpriteEffects.None, (float)((double)lastUser.getStandingY() / 10000.0 + 0.06 + 0.005));
 

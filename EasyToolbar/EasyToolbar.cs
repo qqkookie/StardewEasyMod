@@ -32,7 +32,7 @@ namespace EasyToolbar
         private const int TBSlots = 12;
 
         private static bool AutoToolActive = false;
-        private static bool Found = false; 
+        private static bool Found = false;
         private static int wc_cache = -1;       // watercan index
 
         /*********
@@ -79,7 +79,7 @@ namespace EasyToolbar
                 AutoToolActive = true;
                 return;
             }
-            else if (e.Button == KeyDeselectTool)
+            else if (e.Button == KeyDeselectTool || e.Button == SButton.Escape)
             {
                 if (Game1.player.CurrentToolIndex < 999)
                 {
@@ -101,7 +101,7 @@ namespace EasyToolbar
                 Game1.player.CurrentToolIndex = 0;
 
             if ( Config.DeselectOnShift)
-                // Invalid tool index to deselect current tool 
+                // Invalid tool index to deselect current tool
                 Game1.player.CurrentToolIndex += 99* TBSlots;
         }
 
@@ -114,7 +114,7 @@ namespace EasyToolbar
         // Scroll to empty toolbar slot on mouse wheel scroll
         private static void OnMouseWheelScrolled(object sender, MouseWheelScrolledEventArgs e)
         {
-            if (!Context.CanPlayerMove || Game1.activeClickableMenu != null 
+            if (!Context.CanPlayerMove || Game1.activeClickableMenu != null
                 || Game1.player.UsingTool || Game1.pickingTool)
                 return;
 
@@ -153,7 +153,7 @@ namespace EasyToolbar
             Found = false;
 
             // choose cursor location or tool hit location.
-            Vector2 tile = Game1.player.isRidingHorse() ? Game1.currentCursorTile 
+            Vector2 tile = Game1.player.isRidingHorse() ? Game1.currentCursorTile
                 : player.GetToolLocation(ignoreClick: false) / Game1.tileSize;
             tile = new Vector2((float)Math.Floor(tile.X +0.000001f), (float)Math.Floor(tile.Y + 0.000001f));
 
@@ -199,7 +199,7 @@ namespace EasyToolbar
                 SelectTool("Watering Can");
                 wc_cache = NewToolIndex;
             }
-            
+
             //else if (map.doesTileHaveProperty((int) tile.X, (int)tile.Y, "Diggable", "Back") != null)
             //    SelectTool("Hoe");
 
@@ -232,7 +232,7 @@ namespace EasyToolbar
                 if (map is MineShaft || map.Name.StartsWith("UndergroundMine"))
                     SelectTool("Weapon");
                 else
-                    SelectTool(Config.DefaultTool);    
+                    SelectTool(Config.DefaultTool);
             }
         }
 
@@ -249,7 +249,7 @@ namespace EasyToolbar
             for (int ii = 0; inven.MoveNext() && (allrows || ii < TBSlots); ii++)
             {
                 Item obj = inven.Current;
-                if (obj != null && obj is Tool && 
+                if (obj != null && obj is Tool &&
                     (obj.Name.EndsWith(tooltype) || (weapontype && (obj is MeleeWeapon))))
                 {
                     if (!((tooltype == "Weapon" && obj.Name == "Scythe")
@@ -275,7 +275,7 @@ namespace EasyToolbar
                     return -1;
             }
 
-            if ((Game1.player.CurrentToolIndex < 999 || iTool < 999)  
+            if ((Game1.player.CurrentToolIndex < 999 || iTool < 999)
                 && (Game1.player.CurrentToolIndex != iTool))
             {
                 NewToolIndex = iTool;

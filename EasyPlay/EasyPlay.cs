@@ -48,7 +48,7 @@ namespace EasyPlay
 private void Input_ButtonPressed(object sender, ButtonPressedEventArgs e)
 {
     e.Button.TryGetKeyboard(out Keys keyPressed);
-                
+
 
     if (keyPressed.Equals(config.debugKey))
         Monitor.Log(Translation.Get("template.key"), LogLevel.Info);

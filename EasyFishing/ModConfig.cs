@@ -1,4 +1,4 @@
-﻿namespace EasyFishing
+namespace EasyFishing
 {
     /// <summary>The mod configuration.</summary>
     internal class ModConfig

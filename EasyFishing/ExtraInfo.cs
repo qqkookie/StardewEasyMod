@@ -61,10 +61,10 @@ namespace EasyFishing
             foreach (string key in TransDic.Keys.ToArray())
                 TransDic[key] = helper.Translation.Get(TransDic[key]);
 
-            foreach (int ii in Enumerable.Range(0, 4)) 
+            foreach (int ii in Enumerable.Range(0, 4))
                 SeasonDisplay[ii] = Game1.content.LoadString("Strings\\StringsFromCSFiles:" + SeasonDisplay[ii]);
 
-            // Split each location data into 4 season sections 
+            // Split each location data into 4 season sections
             foreach (var locationData in locationDatabase)
             {
                 if (locationData.Key == "Temp") //|| locationData.Key == "fishingGame")
@@ -137,7 +137,7 @@ namespace EasyFishing
             string idstr = fishId.ToString();
             string SeasonInfo = "";
 
-            // for each season, where can we catch the fish? 
+            // for each season, where can we catch the fish?
             foreach (int iseason in Enumerable.Range(0, 4))
             {
                 List<string> location = new List<string>();
@@ -188,7 +188,7 @@ namespace EasyFishing
             return String.Format("{0:00}:{1:00}", ((itime / 100) % 24), ((itime % 100) % 60));
         }
 
-        /// <summary>Draw hover text on main game menu > collections tab > fish collections page is up.</summary> 
+        /// <summary>Draw hover text on main game menu > collections tab > fish collections page is up.</summary>
         internal static void DrawFishHover(RenderedActiveMenuEventArgs args)
         {
             if (!(Game1.activeClickableMenu is GameMenu MainMenu)
@@ -225,7 +225,7 @@ namespace EasyFishing
         private static string CreateDescription(int index, out int price)
         {
             string[] objInfo = (Game1.objectInformation[index].Split('/'));
-            string desc = objInfo[4] + NL2 + Game1.parseText(objInfo[5], Game1.smallFont, Game1.tileSize * 5) 
+            string desc = objInfo[4] + NL2 + Game1.parseText(objInfo[5], Game1.smallFont, Game1.tileSize * 5)
                 + NL2 + ExtraFishDesc[index];
 
             price = Convert.ToInt32(objInfo[1]);

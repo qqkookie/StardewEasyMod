@@ -71,7 +71,7 @@ namespace EasyFishing
             {
                 string[] data = kv.Value.ToLower().Split('/');
                 string id = kv.Key.ToString();
-                if (data[1] != "trap" && !exclude.Contains(kv.Key) && (fishnames.Length == 0 || fishnames.Contains(data[0]) 
+                if (data[1] != "trap" && !exclude.Contains(kv.Key) && (fishnames.Length == 0 || fishnames.Contains(data[0])
                     || (data.Count() >= 14 && fishnames.Contains(data[13])) || fishnames.Contains(id)))
                 {
                     // Monitor.Log($"{id} {data[0]}\t\t{data[13]}");
@@ -105,7 +105,7 @@ namespace EasyFishing
             {
                 // Is there some water tile in my front?
                 Farmer player = Game1.player;
-                GameLocation map = Game1.currentLocation;                
+                GameLocation map = Game1.currentLocation;
                 Point cp = player.getTileLocationPoint();
                 Location cTile = new Location(cp.X, cp.Y);
                 Location diruvec = FacingDirection();
@@ -131,7 +131,7 @@ namespace EasyFishing
                 return;
             }
 
-            if (Config.DisableFishingAdjust) 
+            if (Config.DisableFishingAdjust)
                 return;
 
             SBobberBar bobber = Bobber;
@@ -262,7 +262,7 @@ namespace EasyFishing
                     && Game1.random.NextDouble() > LossRatio(Config.LastingBait))
                     rod.attachments[0].Stack++;
 
-                if (rod.attachments[1] != null && rod.attachments[1].uses.Value > 0 
+                if (rod.attachments[1] != null && rod.attachments[1].uses.Value > 0
                     && Game1.random.NextDouble() > LossRatio(Config.LastingTackle))
                 {
                     rod.attachments[1].uses.Value--;
@@ -276,7 +276,7 @@ namespace EasyFishing
         private static double LossRatio(int percent)
         {
             double r = (percent <= 0) ? Game1.player.FishingLevel * 0.2 : percent / 100.0;
-            return 1.0 /(1.0 + r); 
+            return 1.0 /(1.0 + r);
         }
 
         private static void OnUpdateTicking(object sender, UpdateTickingEventArgs e)

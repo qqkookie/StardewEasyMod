@@ -13,7 +13,7 @@ namespace EasySave
         /// <summary>When returned to title screen, foret last loaded game.</summary>
         public bool ForgetLastOnTitle { get; set; }
 
-        /// <remarks>Preferred "Windowed" screen resolution and postion of title screen. 
+        /// <remarks>Preferred "Windowed" screen resolution and postion of title screen.
         /// list of 4 numbers of width, hieght and optional X, Y postion.</remarks>
         public int[] TitleWindow { get; set; } = { 1920, 1080, -1, -1 };
 

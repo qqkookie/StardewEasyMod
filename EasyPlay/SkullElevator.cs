@@ -35,7 +35,7 @@ namespace EasyPlay
 
             GameLocation skullcave = Game1.getLocationFromName("SkullCave");
             TileSheet tileSheet = Game1.getLocationFromName("Mine").map.GetTileSheet("untitled tile sheet");
-            skullcave.map.AddTileSheet(new TileSheet("z_path_objects_custom_sheet", skullcave.map, 
+            skullcave.map.AddTileSheet(new TileSheet("z_path_objects_custom_sheet", skullcave.map,
                 tileSheet.ImageSource, tileSheet.SheetSize, tileSheet.TileSize));
             skullcave.map.DisposeTileSheets(Game1.mapDisplayDevice);
             skullcave.map.LoadTileSheets(Game1.mapDisplayDevice);
@@ -50,7 +50,7 @@ namespace EasyPlay
 
         private static void MenuChanged(object sender, MenuChangedEventArgs e)
         {
-            if (!(e.NewMenu is MineElevatorMenu) || Game1.currentLocation.Name == "Mine" 
+            if (!(e.NewMenu is MineElevatorMenu) || Game1.currentLocation.Name == "Mine"
                 || (e.NewMenu is SkullElevatorMenu || e.NewMenu is SkullElevatorMenuScroll))
                 return;
             if (Game1.currentLocation is MineShaft)

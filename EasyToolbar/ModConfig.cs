@@ -26,8 +26,8 @@ namespace EasyToolbar
         public string WeedsTool { get; set; } = "Scythe";
 
         /// <summary>
-        /// Default tool to select when nothing is appropriate. 
-        /// Can be tool name like "Scythe" or numbered slot ("1"-"12") 
+        /// Default tool to select when nothing is appropriate.
+        /// Can be tool name like "Scythe" or numbered slot ("1"-"12")
         /// or "none" to select nothing (empty hand), or "keep" for keeping current selected tool.
         /// </summary>
         public string DefaultTool { get; set; } = "keep";

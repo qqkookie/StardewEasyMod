@@ -21,7 +21,7 @@ namespace EasyPlay
         internal static bool AllowEat = false;
 
         internal static void Setup()
-        { 
+        {
             Enum.TryParse(Config.EatPrefixKey, true, out EatPrefix);
 
             DisableDontAskToEat = Config.DisableDontAskToEat;
@@ -81,7 +81,7 @@ namespace EasyPlay
             }
         }
 
-        //  To eat something not in the foods list, select the edible and press prefix key 
+        //  To eat something not in the foods list, select the edible and press prefix key
         //  followed by action button (click right). Then select yes on the eat confirm dialogue.
         //  Then the new edible will be added to the current foods list.
         internal static void OnButtonPressed(object sender, ButtonPressedEventArgs e)

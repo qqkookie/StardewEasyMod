@@ -39,6 +39,7 @@ Setting                     | Purpose
 `EatPrefixKey`              | Don't Ask to Eat: Key to allow eating something not in the food list.
 `Foods`                     | Don't Ask to Eat: Eat/drink only these in the foods list. Don't ask to eat other edibles.
 
+ * Pressing Left Control + horse whistle key near the horse will remove horse hat and put it into your inventory.
  * The `Foods` list is name list of permitted foods. Name can be either localized display name or English name,
 upper/lower case is ignored. For edible items not listed here, confirm dialogue will be blocked.
 In square bracket list, each item is comma-separated and enclosed in double quotation marks.

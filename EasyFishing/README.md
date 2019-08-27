@@ -59,7 +59,7 @@ Setting                     | Purpose
 `SlowReel`                  | Slow down movement of angling reel: reduction by percent. 0 is normal, 90 is the slowest.
 `ExpandBar`                 | Expand size of green moving bar in percent. 0 is normal.
 `ProgressStart`             | Set initial catch progress by percent.
-`ProgressBoost`             | Boost catch progress rate by percent. 
+`ProgressBoost`             | Boost catch progress rate by percent.
 `AlwaysTreasure`            | Always find treasure.
 `CatchTreasure`             | On successful fish catch, catch treasure also without fail.
 `LastingBait`               | Fishing bait lasts longer by percent. 50 means 150% the life.
@@ -68,7 +68,7 @@ Setting                     | Purpose
 For all key names, see [key bindings](https://stardewvalleywiki.com/Modding:Key_bindings)
 
 ## Note on fishing practice
-* For `ProgressBoost`, 0 is normal. Below 100, slow progress drain. At 100, no decay. 
+* For `ProgressBoost`, 0 is normal. Below 100, slow progress drain. At 100, no decay.
 Above 100, faster progress.
 * Fish caught on practice does not count. No new fish in your inventory,
 no fishing experience or level gain, no fish count or size record or collection,

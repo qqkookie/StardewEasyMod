@@ -1,4 +1,4 @@
-﻿﻿Easy Toolbar Mod
+Easy Toolbar Mod
 ========
 
 **Easy Toolbar Mod** is a [Stardew Valley](http://stardewvalley.net/) mod
@@ -37,6 +37,10 @@ Setting                     | Purpose
 or "none" to select nothing (empty hand) or "keep" for keeping current selected tool.
 For Underground Mine or Skull Cavern, default tool is "Weapon".
 * For `AutoToolKey`, You can hit the key or press and hold it to select tool.
+* Pressing `"Escape"` key (to open Game menu) will also deselect tool, same as `DeselectToolKey`.
+
+
+
 
 ## Credits
 Source code: [Github repository](https://github.com/qqkookie/StardewEasyMod/tree/master/EasyToolbar)

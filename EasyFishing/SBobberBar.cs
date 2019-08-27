@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using StardewValley.Menus;
 
 namespace EasyFishing
@@ -10,7 +10,7 @@ namespace EasyFishing
         ///     To retrieve an instance of SBobberBar, use SBobberBar.ConstructFromBaseClass()
         /// </summary>
 
-        public SBobberBar(int whichFish, float fishSize, bool treasure, int bobber ) 
+        public SBobberBar(int whichFish, float fishSize, bool treasure, int bobber )
             : base(whichFish, fishSize, treasure, bobber)
         {
             Timer = 0;

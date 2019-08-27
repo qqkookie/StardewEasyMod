@@ -65,7 +65,7 @@ namespace EasySave
             Enum.TryParse(Config.SaveAnytimeKey, true, out SaveAnytimeKey);
 
             if (SkipIntro.SkipTo != SkipIntro.Screen.Intro && Config.ForgetLastOnTitle)
-                helper.Events.GameLoop.ReturnedToTitle += 
+                helper.Events.GameLoop.ReturnedToTitle +=
                     (s, e) => { SkipIntro.SetLastFile(""); };
 
             BackupSaves();
